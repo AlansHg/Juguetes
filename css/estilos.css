@@ -1,0 +1,894 @@
+/* VARIABLES */
+:root {
+    --gris-superior: #b5b5b5;
+    --fondo: #100c27;
+    --tarjeta: #4d4a87;
+    --verde: #aaff50;
+    --blanco: #ffffff;
+    --gris: #d8d8d8;
+    --negro: #050505;
+}
+
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-width: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--fondo);
+    color: white;
+    overflow-x: hidden;
+}
+
+main {
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+
+/* ============================================ */
+/* ========== PANTALLA DE BIENVENIDA ========== */
+/* ============================================ */
+#pantalla-bienvenida {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--negro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .8s ease, visibility .8s ease;
+}
+
+#pantalla-bienvenida.oculta {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.bienvenida-contenido {
+    text-align: center;
+    animation: aparecerLogo 1.2s ease;
+}
+
+.logo-bienvenida {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #050505;
+    margin: auto;
+}
+
+.logo-bienvenida img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.bienvenida-contenido h1 {
+    margin-top: 20px;
+    font-family: 'Anton', sans-serif;
+    color: rgb(49, 48, 48);
+    letter-spacing: 2px;
+}
+
+@keyframes aparecerLogo {
+    from {
+        opacity: 0;
+        transform: scale(.4);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* ============================================ */
+/* ================== NAVBAR ================== */
+/* ============================================ */
+.navbar {
+    position: fixed;
+    top: 18px;
+    left: 2.2vw;
+    right: 2.2vw;
+    height: 76px;
+    z-index: 1000;
+    padding: 8px 25px;
+    border-radius: 50px;
+    background: #0303038a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    height: 100%;
+}
+
+.logo-circulo {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-circulo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logo-texto {
+    display: flex;
+    flex-direction: column;
+    color: #ffdddd;
+    line-height: 1;
+}
+
+.logo-texto strong {
+    font-size: clamp(18px, 2vw, 27px);
+    font-weight: 800;
+}
+
+.logo-texto span {
+    margin-top: 5px;
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(10px, 1vw, 15px);
+}
+
+
+.menu-desktop {
+    display: flex;
+    gap: 35px;
+}
+
+.menu-desktop a {
+    color: #f1eded;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.menu-desktop a:hover {
+    color: var(--verde);
+}
+
+
+.boton-menu {
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.boton-menu span {
+    width: 50px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+
+/* ============================================ */
+/* ================ MENU MOVIL ================ */
+/* ============================================ */
+.menu-movil {
+    position: fixed;
+    top: 105px;
+    right: 3vw;
+    z-index: 999;
+    width: 230px;
+    padding: 20px;
+    border-radius: 20px;
+    background: #0c0c0c8a;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
+    transition: .3s;
+}
+
+.menu-movil.abierto {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.menu-movil a {
+    padding: 13px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.menu-movil a:hover {
+    background: var(--verde);
+}
+
+
+
+/* ============================================ */
+/* =================== HERO =================== */
+/* ============================================ */
+.hero-contenedor {
+    position: relative;
+    width: 100%;
+    height: clamp(380px, 55vw, 650px);
+    overflow: hidden;
+}
+
+.hero-slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.hero-slide.activo {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgb(244, 248, 248);
+    font-size: clamp(50px, 7vw, 80px);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.hero-anterior {
+    left: 2vw;
+}
+
+.hero-siguiente {
+    right: 2vw;
+}
+
+
+.hero-puntos {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 20;
+}
+
+.hero-punto {
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 50%;
+    background: #050505;
+    cursor: pointer;
+}
+
+.hero-punto.activo {
+    background: white;
+}
+
+.hero-sin-portadas {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    font-size: clamp(18px, 3vw, 28px);
+}
+
+
+/* ============================================ */
+/* ================== CURVA =================== */
+/* ============================================ */
+.curva-hero {
+    height: 10px;
+    position: relative;
+    background: var(--fondo);
+}
+
+.curva-hero::after {
+    content: "";
+    position: absolute;
+    left: -5%;
+    right: -5%;
+    bottom: -100px;
+    height: 150px;
+    background: var(--fondo);
+    border-radius: 40% 40% 0 0;
+}
+
+
+/* ============================================ */
+/* ================= CATALOGO ================= */
+/* ============================================ */
+.catalogo {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 95px 1fr;
+    gap: 20px;
+    padding: 30px 18px 100px;
+    background: var(--fondo);
+}
+
+
+/* =====================================================
+   CATEGORIAS
+===================================================== */
+
+.categorias {
+
+    width: 100px;
+
+    position: sticky;
+
+    top: 110px;
+
+    align-self: start;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    padding: 7px;
+
+    border: 3px solid white;
+
+    border-radius: 20px;
+
+    background: #d8d8d8;
+
+}
+
+
+.categoria-boton {
+
+    width: 100%;
+
+    min-height: 78px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #b8b8b8;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    transition: .3s;
+
+}
+
+
+.categoria-boton:hover {
+
+    background: #d0d0d0;
+
+}
+
+
+.categoria-boton.activo {
+
+    background: var(--verde);
+
+}
+
+
+/* =====================================================
+   SECCIONES
+===================================================== */
+
+.seccion-productos {
+
+    margin-bottom: 60px;
+
+    scroll-margin-top: 120px;
+
+}
+
+
+.titulo-seccion {
+
+    font-family: 'Anton', sans-serif;
+
+    font-size: clamp(45px, 6vw, 75px);
+
+    color: #dedede;
+
+    line-height: 1;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.grid-productos {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(4, minmax(0, 1fr));
+
+    gap: 10px;
+
+}
+
+
+/* =====================================================
+   TARJETA
+===================================================== */
+
+.tarjeta {
+
+    background: var(--fondo);
+
+    border: 1.5px solid white;
+
+    border-radius: 20px;
+
+    padding: 7px;
+
+    transition: .3s;
+
+}
+
+
+.tarjeta:hover {
+
+    transform: translateY(-6px);
+
+}
+
+
+.tarjeta-imagen {
+
+    padding: 5px;
+    padding-top: 10px;
+    width: 100%;
+    height: 130px;
+
+    aspect-ratio: 1 / 1;
+
+    border-radius: 10px 10px 0px 0px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+}
+
+
+.tarjeta-imagen img {
+
+    width: 100%;
+
+   
+
+    object-fit: cover;
+
+}
+
+
+.tarjeta-info {
+
+    padding: 10px 3px 4px;
+
+}
+
+
+.tarjeta-titulo {
+
+    min-height: 42px;
+
+    font-size: clamp(12px, 1.2vw, 15px);
+
+    line-height: 1.3;
+
+    font-weight: 700;
+
+}
+
+
+.tarjeta-precio {
+
+    margin-top: 7px;
+
+    color: var(--verde);
+
+    font-size: clamp(24px, 2.3vw, 30px);
+
+    font-weight: 800;
+
+}
+
+
+/* =====================================================
+   BOTON
+===================================================== */
+
+.boton-ver-todos {
+
+    display: block;
+
+    margin: 25px auto 0;
+
+    padding: 8px 22px;
+
+    background: transparent;
+
+    color: white;
+
+    border: 1.5px solid white;
+
+    border-radius: 30px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+.boton-ver-todos:hover {
+
+    background: white;
+
+    color: var(--fondo);
+
+}
+
+
+/* =====================================================
+   CARGANDO
+===================================================== */
+
+.cargando {
+
+    padding: 80px 20px;
+
+    text-align: center;
+
+    font-size: 18px;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    color: #aaa;
+
+    background: #08061a;
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .menu-desktop {
+
+        display: none;
+
+    }
+
+
+    .grid-productos {
+
+        grid-template-columns:
+
+            repeat(3, minmax(0, 1fr));
+
+    }
+
+}
+
+
+/* =====================================================
+   MOVIL
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .navbar {
+
+        top: 12px;
+
+        left: 18px;
+
+        right: 27px;
+
+        height: 68px;
+
+        padding: 5px 14px;
+
+        border-radius: 50px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+    }
+
+
+    .navbar-logo {
+
+        height: 100%;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        min-width: 0;
+
+    }
+
+
+    .logo-circulo {
+
+        width: 50px;
+
+        height: 50px;
+
+        min-width: 50px;
+
+    }
+
+
+    .logo-texto {
+
+        justify-content: center;
+
+        height: 100%;
+
+    }
+
+
+    .logo-texto strong {
+
+        font-size: 17px;
+
+        line-height: 1;
+
+        white-space: nowrap;
+
+    }
+
+
+    .logo-texto span {
+
+        margin-top: 4px;
+
+        font-size: 9px;
+
+        line-height: 1;
+
+        white-space: nowrap;
+
+    }
+
+
+    .boton-menu {
+
+        width: 48px;
+
+        height: 48px;
+
+        min-width: 48px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 6px;
+
+    }
+
+
+    .boton-menu span {
+
+        width: 42px;
+
+        height: 3px;
+
+    }
+
+
+    .hero {
+
+        padding-top: 90px;
+
+    }
+
+
+    .hero-contenedor {
+
+        height: 380px;
+
+    }
+
+
+    .hero-flecha {
+
+        font-size: 45px;
+
+    }
+
+
+    .catalogo {
+
+        display: block;
+
+        padding:
+
+            25px
+
+            18px
+
+            80px;
+
+    }
+
+
+    .categorias {
+
+        position: sticky;
+
+        top: 90px;
+
+        z-index: 50;
+
+        width: 100%;
+
+        flex-direction: row;
+
+        overflow-x: auto;
+
+        margin-bottom: 30px;
+
+    }
+
+
+    .categoria-boton {
+
+        min-width: 80px;
+
+        min-height: 55px;
+
+        flex-shrink: 0;
+
+    }
+
+
+    .grid-productos {
+
+        grid-template-columns:
+
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .titulo-seccion {
+
+        font-size: 50px;
+
+    }
+
+}
+
+
+/* =====================================================
+   MOVIL PEQUEÑO
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .titulo-seccion {
+
+        font-size: 43px;
+
+    }
+
+
+    .tarjeta-titulo {
+
+        font-size: 11px;
+
+    }
+
+
+    .tarjeta-precio {
+
+        font-size: 23px;
+
+    }
+
+}
