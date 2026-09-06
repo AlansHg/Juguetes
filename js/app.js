@@ -1,802 +1,669 @@
 /* =====================================================
-   CONFIGURACIÓN GOOGLE SHEETS / SHEETDB
+   CONFIGURACIÓN GENERAL
 ===================================================== */
 
 
 /*
-    ESTE ES TU LINK
+    ID DE TU GOOGLE SHEETS
 */
 
-const URL_BASE =
-    'https://sheetdb.io/api/v1/zsjbjq52wombt';
+const GOOGLE_SHEET_ID =
+    "1PsIS4-p4fXwRx-8zfyxRf6OCLSGA92lavCqXERi7NDY";
 
 
 /*
-    NOMBRES DE LAS HOJAS
-
-    CAMBIA ESTOS NOMBRES POR LOS REALES
-    DE TU GOOGLE SHEETS.
+    NOMBRES EXACTOS DE LAS HOJAS
 */
 
-const HOJAS = {
+const HOJA_1 =
+    "Hoja 1";
 
-    sets: 'Hoja 1',
+const HOJA_2 =
+    "Hoja 2";
 
-    figuras: 'Hoja 2',
+const HOJA_3 =
+    "Hoja 3";
 
-    otros: 'Hoja 3',
-
-    portadas: 'Hoja 4'
-
-};
+const HOJA_4 =
+    "Hoja 4";
 
 
 /*
-    Construir URL de cada hoja
+    TIEMPO DEL HERO
+
+    10000 = 10 segundos
 */
 
-function obtenerURLHoja(nombreHoja) {
-
-    return `${URL_BASE}?sheet=${encodeURIComponent(nombreHoja)}`;
-
-}
-
+const TIEMPO_HERO =
+    10000;
 
 
 /* =====================================================
-   DATOS
+   ELEMENTOS
 ===================================================== */
 
-let datosCatalogo = {};
+const pantallaBienvenida =
+    document.getElementById(
+        "pantalla-bienvenida"
+    );
 
+
+const botonMenu =
+    document.getElementById(
+        "boton-menu"
+    );
+
+
+const menuMovil =
+    document.getElementById(
+        "menu-movil"
+    );
+
+
+const categorias =
+    document.getElementById(
+        "categorias"
+    );
+
+
+const contenidoProductos =
+    document.getElementById(
+        "contenido-productos"
+    );
+
+
+const heroSlider =
+    document.getElementById(
+        "hero-slider"
+    );
+
+
+const heroPuntos =
+    document.getElementById(
+        "hero-puntos"
+    );
+
+
+const heroAnterior =
+    document.getElementById(
+        "hero-anterior"
+    );
+
+
+const heroSiguiente =
+    document.getElementById(
+        "hero-siguiente"
+    );
 
 
 /* =====================================================
-   CARGAR UNA HOJA
+   VARIABLES DEL HERO
 ===================================================== */
 
-async function cargarHoja(nombreHoja) {
+let portadas = [];
 
-    try {
+let portadaActual = 0;
 
-        const respuesta =
-            await fetch(
-                obtenerURLHoja(nombreHoja)
+let intervaloHero = null;
+
+
+/* =====================================================
+   MENU MOVIL
+===================================================== */
+
+botonMenu.addEventListener(
+    "click",
+    () => {
+
+        const abierto =
+            menuMovil.classList.toggle(
+                "abierto"
             );
 
 
-        if (!respuesta.ok) {
-
-            throw new Error(
-                `Error HTTP ${respuesta.status}`
-            );
-
-        }
-
-
-        const datos =
-            await respuesta.json();
-
-
-        return datos;
-
-
-    } catch (error) {
-
-        console.error(
-            `Error cargando ${nombreHoja}:`,
-            error
+        botonMenu.classList.toggle(
+            "abierto"
         );
 
 
-        return [];
+        botonMenu.setAttribute(
+            "aria-expanded",
+            abierto
+        );
 
     }
+);
 
-}
 
+/*
+    Cerrar menú al seleccionar
+*/
 
+menuMovil
+    .querySelectorAll("a")
+    .forEach(
+        enlace => {
 
-/* =====================================================
-   CARGAR TODO EL CATALOGO
-===================================================== */
-
-async function cargarCatalogo() {
-
-    const contenedor =
-        document.getElementById(
-            'contenido-productos'
-        );
-
-
-    try {
-
-        /*
-            Cargar las 3 hojas al mismo tiempo
-        */
-
-        const resultados =
-            await Promise.all([
-
-                cargarHoja(HOJAS.sets),
-
-                cargarHoja(HOJAS.figuras),
-
-                cargarHoja(HOJAS.otros),
-
-                cargarHoja(HOJAS.portadas)
-
-            ]);
-
-
-        /*
-            Guardamos los datos
-        */
-
-        datosCatalogo = {
-
-            sets: resultados[0],
-
-            figuras: resultados[1],
-
-            otros: resultados[2],
-
-            portadas: resultados[3]
-
-        };
-
-        /*
-            Preparar Hero
-        */
-
-        prepararPortadas();
-
-        iniciarHero();
-
-
-
-        /*
-            Crear interfaz
-        */
-
-        crearCategorias();
-
-        crearSecciones();
-
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        contenedor.innerHTML = `
-
-            <div class="cargando">
-
-                No se pudo cargar el catálogo.
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   NORMALIZAR PRODUCTO
-===================================================== */
-
-function obtenerProducto(producto) {
-
-    /*
-        Aquí usamos exactamente la lógica
-        que ya estabas utilizando.
-    */
-
-
-    const titulo =
-
-        producto.titulo ||
-
-        producto.Titulo ||
-
-        producto.title ||
-
-        'Sin título';
-
-
-    const precio =
-
-        producto.precio ||
-
-        producto.Precio ||
-
-        0;
-
-
-    const imagen =
-
-        producto.imagen_url ||
-
-        producto.imagen ||
-
-        producto.Foto ||
-
-        producto.foto ||
-
-        'https://via.placeholder.com/500x500?text=FOTO';
-
-
-    return {
-
-        titulo: String(titulo),
-
-        precio: String(precio),
-
-        imagen: imagen
-
-    };
-
-}
-
-
-
-/* =====================================================
-   CREAR CATEGORIAS
-===================================================== */
-
-function crearCategorias() {
-
-    const contenedor =
-        document.getElementById(
-            'categorias'
-        );
-
-
-    contenedor.innerHTML = '';
-
-
-    const listaCategorias = [
-
-        {
-            id: 'sets',
-
-            nombre: 'SETS'
-        },
-
-        {
-            id: 'figuras',
-
-            nombre: 'FIGURAS'
-        },
-
-        {
-            id: 'otros',
-
-            nombre: 'OTROS'
-        }
-
-    ];
-
-
-    listaCategorias.forEach(
-        (categoria, indice) => {
-
-            const boton =
-                document.createElement(
-                    'button'
-                );
-
-
-            boton.className =
-                'categoria-boton';
-
-
-            if (indice === 0) {
-
-                boton.classList.add(
-                    'activo'
-                );
-
-            }
-
-
-            boton.textContent =
-                categoria.nombre;
-
-
-            boton.addEventListener(
-                'click',
+            enlace.addEventListener(
+                "click",
                 () => {
 
-                    const seccion =
-                        document.getElementById(
-                            `seccion-${categoria.id}`
+                    menuMovil.classList.remove(
+                        "abierto"
+                    );
+
+                    botonMenu.classList.remove(
+                        "abierto"
+                    );
+
+                    botonMenu.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   GOOGLE SHEETS JSONP
+===================================================== */
+
+
+/*
+    Esta función carga una hoja
+    directamente desde Google Sheets.
+
+    NO utiliza fetch.
+
+    Por eso evitamos el problema CORS.
+*/
+
+function cargarHoja(
+    nombreHoja
+) {
+
+    return new Promise(
+        (
+            resolver,
+            rechazar
+        ) => {
+
+
+            const callback =
+                "googleSheetsCallback_" +
+                Date.now() +
+                "_" +
+                Math.floor(
+                    Math.random() * 10000
+                );
+
+
+            /*
+                Crear callback global
+            */
+
+            window[callback] =
+                function(respuesta) {
+
+                    try {
+
+                        const tabla =
+                            respuesta.table;
+
+
+                        const columnas =
+                            tabla.cols;
+
+
+                        const filas =
+                            tabla.rows;
+
+
+                        /*
+                            Convertimos la tabla
+                            en objetos.
+                        */
+
+                        const datos =
+                            filas.map(
+                                fila => {
+
+                                    const objeto = {};
+
+
+                                    columnas.forEach(
+                                        (
+                                            columna,
+                                            indice
+                                        ) => {
+
+                                            const nombre =
+                                                (
+                                                    columna.label ||
+                                                    columna.id ||
+                                                    ""
+                                                ).trim();
+
+
+                                            const celda =
+                                                fila.c[
+                                                    indice
+                                                ];
+
+
+                                            objeto[
+                                                nombre
+                                            ] =
+                                                celda
+                                                ? celda.v
+                                                : "";
+
+                                        }
+                                    );
+
+
+                                    return objeto;
+
+                                }
+                            );
+
+
+                        /*
+                            Resolver Promise
+                        */
+
+                        resolver(
+                            datos
                         );
 
 
-                    if (seccion) {
+                    } catch (error) {
 
-                        seccion.scrollIntoView({
-
-                            behavior: 'smooth',
-
-                            block: 'start'
-
-                        });
+                        rechazar(
+                            error
+                        );
 
                     }
 
 
                     /*
-                        Marcar botón
+                        Limpiar callback
                     */
 
-                    document
-                        .querySelectorAll(
-                            '.categoria-boton'
+                    delete window[
+                        callback
+                    ];
+
+                };
+
+
+            /*
+                Crear script
+            */
+
+            const script =
+                document.createElement(
+                    "script"
+                );
+
+
+            /*
+                URL Google Visualization
+            */
+
+            const url =
+                "https://docs.google.com/spreadsheets/d/" +
+                GOOGLE_SHEET_ID +
+                "/gviz/tq?" +
+                "sheet=" +
+                encodeURIComponent(
+                    nombreHoja
+                ) +
+                "&tqx=" +
+                encodeURIComponent(
+                    "out:json;responseHandler:" +
+                    callback
+                );
+
+
+            console.log(
+                "Cargando:",
+                nombreHoja
+            );
+
+
+            script.src =
+                url;
+
+
+            /*
+                Error de conexión
+            */
+
+            script.onerror =
+                function() {
+
+                    delete window[
+                        callback
+                    ];
+
+
+                    rechazar(
+                        new Error(
+                            "No se pudo cargar " +
+                            nombreHoja
                         )
-                        .forEach(
-                            b =>
-                                b.classList.remove(
-                                    'activo'
-                                )
+                    );
+
+                };
+
+
+            document.body.appendChild(
+                script
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FUNCIONES PARA BUSCAR COLUMNAS
+===================================================== */
+
+
+/*
+    Permite encontrar columnas
+    aunque cambies mayúsculas/minúsculas.
+*/
+
+function obtenerCampo(
+    objeto,
+    nombres,
+    valorDefault = ""
+) {
+
+    for (
+        const nombre of nombres
+    ) {
+
+        if (
+            objeto[nombre] !== undefined &&
+            objeto[nombre] !== null &&
+            objeto[nombre] !== ""
+        ) {
+
+            return objeto[nombre];
+
+        }
+
+    }
+
+
+    /*
+        búsqueda ignorando mayúsculas
+    */
+
+    const claves =
+        Object.keys(
+            objeto
+        );
+
+
+    for (
+        const clave of claves
+    ) {
+
+        const claveNormalizada =
+            clave
+                .toLowerCase()
+                .trim();
+
+
+        for (
+            const nombre of nombres
+        ) {
+
+            if (
+                claveNormalizada ===
+                nombre
+                    .toLowerCase()
+                    .trim()
+            ) {
+
+                return objeto[
+                    clave
+                ];
+
+            }
+
+        }
+
+    }
+
+
+    return valorDefault;
+
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+async function cargarPortadas() {
+
+    try {
+
+        const datos =
+            await cargarHoja(
+                HOJA_4
+            );
+
+
+        console.log(
+            "Portadas:",
+            datos
+        );
+
+
+        /*
+            Filtrar únicamente
+            portadas activas.
+        */
+
+        portadas =
+            datos.filter(
+                portada => {
+
+                    const activo =
+                        obtenerCampo(
+                            portada,
+                            [
+                                "Activo",
+                                "activo"
+                            ]
                         );
 
 
-                    boton.classList.add(
-                        'activo'
+                    return (
+                        String(
+                            activo
+                        )
+                        .toLowerCase()
+                        .trim() ===
+                        "si"
+                        ||
+                        String(
+                            activo
+                        )
+                        .toLowerCase()
+                        .trim() ===
+                        "sí"
+                        ||
+                        String(
+                            activo
+                        ).trim() ===
+                        "1"
+                        ||
+                        String(
+                            activo
+                        )
+                        .toLowerCase()
+                        .trim() ===
+                        "true"
                     );
 
                 }
             );
 
 
-            contenedor.appendChild(
-                boton
-            );
-
-        }
-    );
-
-}
-
-
-
-/* =====================================================
-   CREAR SECCIONES
-===================================================== */
-
-function crearSecciones() {
-
-    const contenedor =
-        document.getElementById(
-            'contenido-productos'
-        );
-
-
-    contenedor.innerHTML = '';
-
-
-    const categorias = [
-
-        {
-            id: 'sets',
-
-            nombre: 'SETS'
-        },
-
-        {
-            id: 'figuras',
-
-            nombre: 'FIGURAS'
-        },
-
-        {
-            id: 'otros',
-
-            nombre: 'OTROS'
-        }
-
-    ];
-
-
-    categorias.forEach(categoria => {
-
-
-        const productos =
-            datosCatalogo[
-                categoria.id
-            ] || [];
-
-
-        const seccion =
-            document.createElement(
-                'section'
-            );
-
-
-        seccion.className =
-            'seccion-productos';
-
-
-        seccion.id =
-            `seccion-${categoria.id}`;
-
-
         /*
-            Titulo
+            Ordenar
         */
 
-        const titulo =
-            document.createElement(
-                'h2'
-            );
+        portadas.sort(
+            (
+                a,
+                b
+            ) => {
 
-
-        titulo.className =
-            'titulo-seccion';
-
-
-        titulo.textContent =
-            categoria.nombre;
-
-
-        seccion.appendChild(
-            titulo
-        );
-
-
-        /*
-            Grid
-        */
-
-        const grid =
-            document.createElement(
-                'div'
-            );
-
-
-        grid.className =
-            'grid-productos';
-
-
-        /*
-            SOLAMENTE 4 PRODUCTOS
-        */
-
-        productos
-            .slice(0, 4)
-            .forEach(producto => {
-
-
-                const datos =
-                    obtenerProducto(
-                        producto
+                const ordenA =
+                    Number(
+                        obtenerCampo(
+                            a,
+                            [
+                                "Orden",
+                                "orden"
+                            ],
+                            9999
+                        )
                     );
 
 
-                const tarjeta =
-                    document.createElement(
-                        'article'
+                const ordenB =
+                    Number(
+                        obtenerCampo(
+                            b,
+                            [
+                                "Orden",
+                                "orden"
+                            ],
+                            9999
+                        )
                     );
 
 
-                tarjeta.className =
-                    'tarjeta';
-
-
-                tarjeta.innerHTML = `
-
-                    <div class="tarjeta-imagen">
-
-                        <img
-                            src="${datos.imagen}"
-                            alt="${datos.titulo}"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-
-                    <div class="tarjeta-info">
-
-                        <div class="tarjeta-titulo">
-
-                            ${datos.titulo}
-
-                        </div>
-
-
-                        <div class="tarjeta-precio">
-
-                            $${datos.precio}
-
-                        </div>
-
-                    </div>
-
-                `;
-
-
-                grid.appendChild(
-                    tarjeta
-                );
-
-            });
-
-
-        seccion.appendChild(
-            grid
-        );
-
-
-        /*
-            BOTON VER TODOS
-        */
-
-        const boton =
-            document.createElement(
-                'button'
-            );
-
-
-        boton.className =
-            'boton-ver-todos';
-
-
-        boton.textContent =
-            `Ver todos ${categoria.nombre.toLowerCase()}`;
-
-
-        boton.addEventListener(
-            'click',
-            () => {
-
-                /*
-                    Después aquí conectaremos
-                    la página específica.
-                */
-
-                console.log(
-                    `Abrir catálogo de ${categoria.nombre}`
+                return (
+                    ordenA -
+                    ordenB
                 );
 
             }
         );
 
 
-        seccion.appendChild(
-            boton
+        /*
+            Eliminar filas
+            sin imagen
+        */
+
+        portadas =
+            portadas.filter(
+                portada => {
+
+                    const imagen =
+                        obtenerCampo(
+                            portada,
+                            [
+                                "Imagen",
+                                "imagen",
+                                "Foto",
+                                "foto",
+                                "URL",
+                                "url"
+                            ]
+                        );
+
+
+                    return (
+                        imagen &&
+                        String(
+                            imagen
+                        ).trim() !== ""
+                    );
+
+                }
+            );
+
+
+        crearHero();
+
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando portadas:",
+            error
         );
 
 
-        contenedor.appendChild(
-            seccion
-        );
+        heroSlider.innerHTML = `
 
-    });
+            <div class="hero-sin-portadas">
 
-}
+                No se pudieron cargar
+                las portadas.
 
+            </div>
 
-
-/* =====================================================
-   HERO DESDE GOOGLE SHEETS
-===================================================== */
-
-let portadas = [];
-
-let indiceHero = 0;
-
-let intervaloHero;
-
-
-/*
-    Convertimos el valor de "Activo"
-    a verdadero o falso.
-
-    Acepta:
-
-    Sí
-    Si
-    SI
-    TRUE
-    true
-    1
-    Activo
-*/
-
-function portadaActiva(valor) {
-
-    if (valor === undefined || valor === null) {
-
-        return false;
+        `;
 
     }
 
-
-    const valorNormalizado =
-        String(valor)
-            .trim()
-            .toLowerCase();
-
-
-    return (
-
-        valorNormalizado === 'sí' ||
-
-        valorNormalizado === 'si' ||
-
-        valorNormalizado === 'true' ||
-
-        valorNormalizado === '1' ||
-
-        valorNormalizado === 'activo'
-
-    );
-
 }
 
 
-/*
-    Preparar portadas
-*/
-
-function prepararPortadas() {
-
-    const datos =
-        datosCatalogo.portadas || [];
-
-
-    /*
-        Solamente portadas activas
-    */
-
-    portadas = datos
-
-        .filter(portada => {
-
-            return portadaActiva(
-                portada.Activo ||
-                portada.activo
-            );
-
-        })
-
-
-        /*
-            Convertir datos
-        */
-
-        .map(portada => {
-
-            return {
-
-                imagen:
-                    portada.Imagen ||
-
-                    portada.imagen ||
-
-                    portada.Foto ||
-
-                    portada.foto ||
-
-                    '',
-
-
-                orden:
-                    Number(
-
-                        portada.Orden ||
-
-                        portada.orden ||
-
-                        9999
-
-                    )
-
-            };
-
-        })
-
-
-        /*
-            Eliminar imágenes vacías
-        */
-
-        .filter(portada => {
-
-            return portada.imagen !== '';
-
-        })
-
-
-        /*
-            Ordenar
-        */
-
-        .sort((a, b) => {
-
-            return a.orden - b.orden;
-
-        });
-
-
-    /*
-        Reiniciar índice
-    */
-
-    indiceHero = 0;
-
-
-    /*
-        Crear visualmente
-    */
-
-    crearHero();
-
-}
-
-
-
-
-const heroSlider =
-    document.getElementById(
-        'hero-slider'
-    );
-
-
-const heroPuntos =
-    document.getElementById(
-        'hero-puntos'
-    );
-
-
-/*let indiceHero = 0;*/
-
-
-/*
-    Crear Hero
-*/
+/* =====================================================
+   CREAR HERO
+===================================================== */
 
 function crearHero() {
 
-    const heroSlider =
-        document.getElementById(
-            'hero-slider'
-        );
+    heroSlider.innerHTML = "";
 
-
-    const heroPuntos =
-        document.getElementById(
-            'hero-puntos'
-        );
-
-
-    heroSlider.innerHTML = '';
-
-    heroPuntos.innerHTML = '';
+    heroPuntos.innerHTML = "";
 
 
     /*
         Si no existen portadas
     */
 
-    if (portadas.length === 0) {
+    if (
+        portadas.length === 0
+    ) {
 
         heroSlider.innerHTML = `
 
             <div class="hero-sin-portadas">
 
-                No hay portadas disponibles.
+                No hay portadas activas.
 
             </div>
 
         `;
+
+
+        heroAnterior.style.display =
+            "none";
+
+        heroSiguiente.style.display =
+            "none";
 
         return;
 
@@ -804,27 +671,57 @@ function crearHero() {
 
 
     /*
-        Crear cada portada
+        Mostrar flechas
+    */
+
+    heroAnterior.style.display =
+        "";
+
+    heroSiguiente.style.display =
+        "";
+
+
+    /*
+        Crear slides
     */
 
     portadas.forEach(
-        (portada, indice) => {
+        (
+            portada,
+            indice
+        ) => {
+
+
+            const imagen =
+                obtenerCampo(
+                    portada,
+                    [
+                        "Imagen",
+                        "imagen",
+                        "Foto",
+                        "foto",
+                        "URL",
+                        "url"
+                    ]
+                );
 
 
             const slide =
                 document.createElement(
-                    'div'
+                    "div"
                 );
 
 
             slide.className =
-                'hero-slide';
+                "hero-slide";
 
 
-            if (indice === 0) {
+            if (
+                indice === 0
+            ) {
 
                 slide.classList.add(
-                    'activo'
+                    "activo"
                 );
 
             }
@@ -833,8 +730,9 @@ function crearHero() {
             slide.innerHTML = `
 
                 <img
-                    src="${portada.imagen}"
+                    src="${imagen}"
                     alt="Portada ${indice + 1}"
+                    draggable="false"
                 >
 
             `;
@@ -851,38 +749,39 @@ function crearHero() {
 
             const punto =
                 document.createElement(
-                    'button'
+                    "button"
                 );
 
 
             punto.className =
-                'hero-punto';
+                "hero-punto";
 
 
-            punto.setAttribute(
-                'aria-label',
-                `Ir a portada ${indice + 1}`
-            );
-
-
-            if (indice === 0) {
+            if (
+                indice === 0
+            ) {
 
                 punto.classList.add(
-                    'activo'
+                    "activo"
                 );
 
             }
 
 
+            punto.setAttribute(
+                "aria-label",
+                "Ir a portada " +
+                (indice + 1)
+            );
+
+
             punto.addEventListener(
-                'click',
+                "click",
                 () => {
 
-                    indiceHero = indice;
-
-                    actualizarHero();
-
-                    reiniciarHero();
+                    irAPortada(
+                        indice
+                    );
 
                 }
             );
@@ -895,41 +794,82 @@ function crearHero() {
         }
     );
 
+
+    /*
+        Iniciar automático
+    */
+
+    iniciarHeroAutomatico();
+
 }
 
 
-
 /* =====================================================
-   ACTUALIZAR HERO
+   CAMBIAR PORTADA
 ===================================================== */
 
-function actualizarHero() {
+function irAPortada(
+    indice
+) {
 
-    const slides =
-        document.querySelectorAll(
-            '.hero-slide'
-        );
-
-
-    const puntos =
-        document.querySelectorAll(
-            '.hero-punto'
-        );
-
-
-    if (!slides.length) {
+    if (
+        portadas.length === 0
+    ) {
 
         return;
 
     }
 
 
+    /*
+        Mantener índice circular
+    */
+
+    if (
+        indice >=
+        portadas.length
+    ) {
+
+        indice = 0;
+
+    }
+
+
+    if (
+        indice < 0
+    ) {
+
+        indice =
+            portadas.length - 1;
+
+    }
+
+
+    portadaActual =
+        indice;
+
+
+    const slides =
+        document.querySelectorAll(
+            ".hero-slide"
+        );
+
+
+    const puntos =
+        document.querySelectorAll(
+            ".hero-punto"
+        );
+
+
     slides.forEach(
-        (slide, indice) => {
+        (
+            slide,
+            i
+        ) => {
 
             slide.classList.toggle(
-                'activo',
-                indice === indiceHero
+                "activo",
+                i === portadaActual
             );
 
         }
@@ -937,11 +877,14 @@ function actualizarHero() {
 
 
     puntos.forEach(
-        (punto, indice) => {
+        (
+            punto,
+            i
+        ) => {
 
             punto.classList.toggle(
-                'activo',
-                indice === indiceHero
+                "activo",
+                i === portadaActual
             );
 
         }
@@ -950,75 +893,48 @@ function actualizarHero() {
 }
 
 
+/* =====================================================
+   SIGUIENTE
+===================================================== */
 
-function siguienteHero() {
+function siguientePortada() {
 
-    if (portadas.length <= 1) {
+    irAPortada(
+        portadaActual + 1
+    );
 
-        return;
-
-    }
-
-
-    indiceHero++;
-
-
-    if (
-        indiceHero >=
-        portadas.length
-    ) {
-
-        indiceHero = 0;
-
-    }
-
-
-    actualizarHero();
+    reiniciarHeroAutomatico();
 
 }
-
-
-function anteriorHero() {
-
-    if (portadas.length <= 1) {
-
-        return;
-
-    }
-
-
-    indiceHero--;
-
-
-    if (indiceHero < 0) {
-
-        indiceHero =
-            portadas.length - 1;
-
-    }
-
-
-    actualizarHero();
-
-}
-
 
 
 /* =====================================================
-   AUTOMATICO
+   ANTERIOR
 ===================================================== */
 
-/*let intervaloHero;*/
+function anteriorPortada() {
 
-
-function iniciarHero() {
-
-    clearInterval(
-        intervaloHero
+    irAPortada(
+        portadaActual - 1
     );
 
+    reiniciarHeroAutomatico();
 
-    if (portadas.length <= 1) {
+}
+
+
+/* =====================================================
+   HERO AUTOMATICO
+===================================================== */
+
+function iniciarHeroAutomatico() {
+
+    detenerHeroAutomatico();
+
+
+    if (
+        portadas.length <= 1
+    ) {
 
         return;
 
@@ -1027,210 +943,816 @@ function iniciarHero() {
 
     intervaloHero =
         setInterval(
-            siguienteHero,
-            10000
-        );
-
-}
-
-
-function reiniciarHero() {
-
-    iniciarHero();
-
-}
-
-
-function reiniciarHero() {
-
-    clearInterval(
-        intervaloHero
-    );
-
-
-    iniciarHero();
-
-}
-
-
-
-/* =====================================================
-   FLECHAS
-===================================================== */
-
-document
-    .getElementById(
-        'hero-siguiente'
-    )
-    .addEventListener(
-        'click',
-        () => {
-
-            siguienteHero();
-
-            reiniciarHero();
-
-        }
-    );
-
-
-document
-    .getElementById(
-        'hero-anterior'
-    )
-    .addEventListener(
-        'click',
-        () => {
-
-            anteriorHero();
-
-            reiniciarHero();
-
-        }
-    );
-
-
-
-/* =====================================================
-   SWIPE
-===================================================== */
-
-let inicioTouch = 0;
-
-
-heroSlider.addEventListener(
-    'touchstart',
-    evento => {
-
-        inicioTouch =
-            evento.touches[0].clientX;
-
-    }
-);
-
-
-heroSlider.addEventListener(
-    'touchend',
-    evento => {
-
-        const finalTouch =
-            evento.changedTouches[0].clientX;
-
-
-        const diferencia =
-            inicioTouch - finalTouch;
-
-
-        if (
-            Math.abs(diferencia) < 50
-        ) {
-
-            return;
-
-        }
-
-
-        if (diferencia > 0) {
-
-            siguienteHero();
-
-        } else {
-
-            anteriorHero();
-
-        }
-
-
-        reiniciarHero();
-
-    }
-);
-
-
-
-/* =====================================================
-   MENU MOVIL
-===================================================== */
-
-const botonMenu =
-    document.getElementById(
-        'boton-menu'
-    );
-
-
-const menuMovil =
-    document.getElementById(
-        'menu-movil'
-    );
-
-
-botonMenu.addEventListener(
-    'click',
-    () => {
-
-        menuMovil.classList.toggle(
-            'abierto'
-        );
-
-    }
-);
-
-
-document
-    .querySelectorAll(
-        '.menu-movil a'
-    )
-    .forEach(enlace => {
-
-        enlace.addEventListener(
-            'click',
             () => {
 
-                menuMovil.classList.remove(
-                    'abierto'
+                irAPortada(
+                    portadaActual + 1
+                );
+
+            },
+            TIEMPO_HERO
+        );
+
+}
+
+
+/* =====================================================
+   DETENER AUTOMATICO
+===================================================== */
+
+function detenerHeroAutomatico() {
+
+    if (
+        intervaloHero
+    ) {
+
+        clearInterval(
+            intervaloHero
+        );
+
+        intervaloHero =
+            null;
+
+    }
+
+}
+
+
+/* =====================================================
+   REINICIAR AUTOMATICO
+===================================================== */
+
+function reiniciarHeroAutomatico() {
+
+    iniciarHeroAutomatico();
+
+}
+
+
+/* =====================================================
+   BOTONES HERO
+===================================================== */
+
+heroSiguiente.addEventListener(
+    "click",
+    siguientePortada
+);
+
+
+heroAnterior.addEventListener(
+    "click",
+    anteriorPortada
+);
+
+
+/* =====================================================
+   SWIPE MOVIL
+===================================================== */
+
+let touchInicioX =
+    0;
+
+let touchFinalX =
+    0;
+
+
+heroSlider.addEventListener(
+    "touchstart",
+    event => {
+
+        touchInicioX =
+            event.changedTouches[0]
+                .screenX;
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+heroSlider.addEventListener(
+    "touchend",
+    event => {
+
+        touchFinalX =
+            event.changedTouches[0]
+                .screenX;
+
+
+        procesarSwipe();
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+function procesarSwipe() {
+
+    const diferencia =
+        touchFinalX -
+        touchInicioX;
+
+
+    /*
+        Si deslizó más de 50px
+    */
+
+    if (
+        Math.abs(
+            diferencia
+        ) < 50
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        diferencia < 0
+    ) {
+
+        siguientePortada();
+
+    } else {
+
+        anteriorPortada();
+
+    }
+
+}
+
+
+/* =====================================================
+   CARGAR CATALOGO
+===================================================== */
+
+async function cargarCatalogo() {
+
+    try {
+
+        /*
+            Cargamos las 3 hojas
+            al mismo tiempo.
+        */
+
+        const [
+            datosHoja1,
+            datosHoja2,
+            datosHoja3
+        ] =
+            await Promise.all(
+                [
+                    cargarHoja(
+                        HOJA_1
+                    ),
+
+                    cargarHoja(
+                        HOJA_2
+                    ),
+
+                    cargarHoja(
+                        HOJA_3
+                    )
+                ]
+            );
+
+
+        console.log(
+            "Hoja 1:",
+            datosHoja1
+        );
+
+
+        console.log(
+            "Hoja 2:",
+            datosHoja2
+        );
+
+
+        console.log(
+            "Hoja 3:",
+            datosHoja3
+        );
+
+
+        /*
+            Crear secciones
+        */
+
+        const secciones = [
+
+            {
+                nombre: "Sets",
+                datos: datosHoja1
+            },
+
+            {
+                nombre: "Figuras",
+                datos: datosHoja2
+            },
+
+            {
+                nombre: "Otros",
+                datos: datosHoja3
+            }
+
+        ];
+
+
+        /*
+            Crear categorías
+        */
+
+        crearCategorias(
+            secciones
+        );
+
+
+        /*
+            Crear productos
+        */
+
+        crearSecciones(
+            secciones
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando catálogo:",
+            error
+        );
+
+
+        contenidoProductos.innerHTML = `
+
+            <div class="error-catalogo">
+
+                No se pudo cargar
+                el catálogo.
+
+                <br><br>
+
+                Revisa la consola
+                para obtener más información.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   CREAR CATEGORIAS
+===================================================== */
+
+function crearCategorias(
+    secciones
+) {
+
+    categorias.innerHTML = "";
+
+
+    secciones.forEach(
+        (
+            seccion,
+            indice
+        ) => {
+
+
+            const boton =
+                document.createElement(
+                    "button"
+                );
+
+
+            boton.className =
+                "categoria-boton";
+
+
+            if (
+                indice === 0
+            ) {
+
+                boton.classList.add(
+                    "activo"
                 );
 
             }
-        );
 
-    });
 
+            boton.textContent =
+                seccion.nombre;
+
+
+            boton.addEventListener(
+                "click",
+                () => {
+
+                    const destino =
+                        document.getElementById(
+                            "seccion-" +
+                            indice
+                        );
+
+
+                    if (
+                        destino
+                    ) {
+
+                        destino.scrollIntoView(
+                            {
+                                behavior:
+                                    "smooth",
+                                block:
+                                    "start"
+                            }
+                        );
+
+                    }
+
+
+                    document
+                        .querySelectorAll(
+                            ".categoria-boton"
+                        )
+                        .forEach(
+                            elemento => {
+
+                                elemento.classList.remove(
+                                    "activo"
+                                );
+
+                            }
+                        );
+
+
+                    boton.classList.add(
+                        "activo"
+                    );
+
+                }
+            );
+
+
+            categorias.appendChild(
+                boton
+            );
+
+        }
+    );
+
+}
 
 
 /* =====================================================
-   BIENVENIDA
+   CREAR SECCIONES
+===================================================== */
+
+function crearSecciones(
+    secciones
+) {
+
+    contenidoProductos.innerHTML =
+        "";
+
+
+    secciones.forEach(
+        (
+            seccion,
+            indice
+        ) => {
+
+
+            const seccionHTML =
+                document.createElement(
+                    "section"
+                );
+
+
+            seccionHTML.className =
+                "seccion-productos";
+
+
+            seccionHTML.id =
+                "seccion-" +
+                indice;
+
+
+            /*
+                Título
+            */
+
+            const titulo =
+                document.createElement(
+                    "h2"
+                );
+
+
+            titulo.className =
+                "titulo-seccion";
+
+
+            titulo.textContent =
+                seccion.nombre;
+
+
+            seccionHTML.appendChild(
+                titulo
+            );
+
+
+            /*
+                Grid
+            */
+
+            const grid =
+                document.createElement(
+                    "div"
+                );
+
+
+            grid.className =
+                "grid-productos";
+
+
+            /*
+                Mostrar productos
+            */
+
+            seccion.datos.forEach(
+                producto => {
+
+                    const tarjeta =
+                        crearTarjeta(
+                            producto
+                        );
+
+
+                    grid.appendChild(
+                        tarjeta
+                    );
+
+                }
+            );
+
+
+            /*
+                Si no hay productos
+            */
+
+            if (
+                seccion.datos.length === 0
+            ) {
+
+                grid.innerHTML = `
+
+                    <p>
+                        No hay productos
+                        disponibles.
+                    </p>
+
+                `;
+
+            }
+
+
+            seccionHTML.appendChild(
+                grid
+            );
+
+
+            /*
+                Botón
+            */
+
+            const botonVerMas =
+                document.createElement(
+                    "button"
+                );
+
+
+            botonVerMas.className =
+                "boton-ver-todos";
+
+
+            botonVerMas.textContent =
+                "Ver más";
+
+
+            /*
+                Por ahora no navega.
+                Después aquí podemos
+                poner la página correspondiente.
+            */
+
+            botonVerMas.addEventListener(
+                "click",
+                () => {
+
+                    console.log(
+                        "Ver más:",
+                        seccion.nombre
+                    );
+
+                }
+            );
+
+
+            seccionHTML.appendChild(
+                botonVerMas
+            );
+
+
+            contenidoProductos.appendChild(
+                seccionHTML
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CREAR TARJETA
+===================================================== */
+
+function crearTarjeta(
+    producto
+) {
+
+
+    /*
+        Datos
+    */
+
+    const titulo =
+        obtenerCampo(
+            producto,
+            [
+                "Titulo",
+                "Título",
+                "titulo",
+                "title"
+            ],
+            "Sin título"
+        );
+
+
+    const precio =
+        obtenerCampo(
+            producto,
+            [
+                "Precio",
+                "precio",
+                "price"
+            ],
+            "0"
+        );
+
+
+    const imagen =
+        obtenerCampo(
+            producto,
+            [
+                "Foto",
+                "foto",
+                "Imagen",
+                "imagen",
+                "imagen_url",
+                "URL",
+                "url"
+            ],
+            ""
+        );
+
+
+    /*
+        Crear tarjeta
+    */
+
+    const tarjeta =
+        document.createElement(
+            "article"
+        );
+
+
+    tarjeta.className =
+        "tarjeta";
+
+
+    /*
+        Imagen
+    */
+
+    const contenedorImagen =
+        document.createElement(
+            "div"
+        );
+
+
+    contenedorImagen.className =
+        "tarjeta-imagen";
+
+
+    if (
+        imagen
+    ) {
+
+        const img =
+            document.createElement(
+                "img"
+            );
+
+
+        img.src =
+            imagen;
+
+
+        img.alt =
+            titulo;
+
+
+        img.loading =
+            "lazy";
+
+
+        img.onerror =
+            function() {
+
+                this.style.display =
+                    "none";
+
+            };
+
+
+        contenedorImagen.appendChild(
+            img
+        );
+
+    }
+
+
+    /*
+        Información
+    */
+
+    const info =
+        document.createElement(
+            "div"
+        );
+
+
+    info.className =
+        "tarjeta-info";
+
+
+    const tituloElemento =
+        document.createElement(
+            "h3"
+        );
+
+
+    tituloElemento.className =
+        "tarjeta-titulo";
+
+
+    tituloElemento.textContent =
+        titulo;
+
+
+    const precioElemento =
+        document.createElement(
+            "div"
+        );
+
+
+    precioElemento.className =
+        "tarjeta-precio";
+
+
+    /*
+        Formatear precio
+    */
+
+    let precioTexto =
+        precio;
+
+
+    if (
+        precio !== "" &&
+        !isNaN(
+            Number(
+                String(
+                    precio
+                )
+                .replace(
+                    /[$,]/g,
+                    ""
+                )
+            )
+        )
+    ) {
+
+        const numero =
+            Number(
+                String(
+                    precio
+                )
+                .replace(
+                    /[$,]/g,
+                    ""
+                )
+            );
+
+
+        precioTexto =
+            numero.toLocaleString(
+                "es-MX",
+                {
+                    minimumFractionDigits:
+                        0,
+                    maximumFractionDigits:
+                        2
+                }
+            );
+
+    }
+
+
+    precioElemento.textContent =
+        "$" +
+        precioTexto;
+
+
+    info.appendChild(
+        tituloElemento
+    );
+
+
+    info.appendChild(
+        precioElemento
+    );
+
+
+    tarjeta.appendChild(
+        contenedorImagen
+    );
+
+
+    tarjeta.appendChild(
+        info
+    );
+
+
+    return tarjeta;
+
+}
+
+
+/* =====================================================
+   PANTALLA DE BIENVENIDA
 ===================================================== */
 
 window.addEventListener(
-    'load',
+    "load",
     () => {
 
         setTimeout(
             () => {
 
-                document
-                    .getElementById(
-                        'pantalla-bienvenida'
-                    )
-                    .classList.add(
-                        'oculta'
-                    );
+                pantallaBienvenida.classList.add(
+                    "oculta"
+                );
 
             },
             1800
         );
 
     }
-); 
-
+);
 
 
 /* =====================================================
-   INICIAR
+   INICIALIZAR
 ===================================================== */
 
-crearHero();
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-iniciarHero();
+        cargarPortadas();
 
-cargarCatalogo();
+        cargarCatalogo();
+
+    }
+);
