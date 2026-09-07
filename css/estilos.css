@@ -1005,6 +1005,47 @@ main {
 
 }
 
+/* =====================================================
+   CATEGORIA DEL PRODUCTO
+===================================================== */
+
+.tarjeta-categoria {
+
+    margin-top: 8px;
+
+    display: inline-block;
+
+    padding: 4px 8px;
+
+    border-radius: 8px;
+
+    background: #4d4a87;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   CANTIDAD
+===================================================== */
+
+.tarjeta-cantidad {
+
+    margin-top: 6px;
+
+    color: #d8d8d8;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
 
 /* =====================================================
    BOTON VER TODOS
