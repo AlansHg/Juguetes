@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AH | Catálogo SETS</title>
+
+
+    <!-- CSS PRINCIPAL -->
+
+    <link
+        rel="stylesheet"
+        href="css/estilos.css"
+    >
+
+
+    <!-- CSS CATÁLOGO -->
+
+    <link
+        rel="stylesheet"
+        href="css/catalogo.css"
+    >
+
+
+    <!-- GOOGLE FONTS -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <div class="navbar-logo">
+
+            <div class="logo-circulo">
+
+                <img
+                    src="img/Logo.png"
+                    alt="Logo"
+                >
+
+            </div>
+
+
+            <div class="logo-texto">
+
+                <strong>
+                    Alan Hinojosa
+                </strong>
+
+                <span>
+                    CATÁLOGO JUGUETES
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENU ESCRITORIO -->
+
+        <nav class="menu-desktop">
+
+            <a href="index.html">
+                Inicio
+            </a>
+
+            <a href="catalogo.html">
+                Catálogo
+            </a>
+
+            <a href="#contacto">
+                Contacto
+            </a>
+
+        </nav>
+
+
+        <!-- MENU MOVIL -->
+
+        <button
+            class="boton-menu"
+            id="boton-menu"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         MENU MOVIL
+    ====================================================== -->
+
+    <nav
+        class="menu-movil"
+        id="menu-movil"
+    >
+
+        <a href="index.html">
+            Inicio
+        </a>
+
+        <a href="catalogo.html">
+            Catálogo
+        </a>
+
+        <a href="#contacto">
+            Contacto
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         CONTENIDO
+    ====================================================== -->
+
+    <main class="catalogo-completo">
+
+
+        <!-- =================================================
+             ENCABEZADO
+        ================================================== -->
+
+        <section class="catalogo-encabezado">
+
+            <span class="catalogo-etiqueta">
+                CATÁLOGO
+            </span>
+
+            <h1>
+                SETS
+            </h1>
+
+            <p>
+                Todos nuestros sets disponibles.
+            </p>
+
+        </section>
+
+
+        <!-- =================================================
+             HERRAMIENTAS
+        ================================================== -->
+
+        <section class="herramientas-catalogo">
+
+
+            <!-- BUSCADOR -->
+
+            <div class="buscador">
+
+                <span class="icono-busqueda">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+
+                        <circle
+                            cx="11"
+                            cy="11"
+                            r="7"
+                        ></circle>
+
+                        <line
+                            x1="16.5"
+                            y1="16.5"
+                            x2="21"
+                            y2="21"
+                        ></line>
+
+                    </svg>
+
+                </span>
+
+
+                <input
+                    type="search"
+                    id="buscador"
+                    placeholder="Buscar SETS..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    id="limpiar-busqueda"
+                    class="limpiar-busqueda"
+                    type="button"
+                    aria-label="Limpiar búsqueda"
+                >
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <!-- CATEGORIAS DE SETS -->
+
+            <div class="filtro-categoria">
+
+                <select
+                    id="filtro-categoria"
+                    aria-label="Filtrar SETS por categoría"
+                >
+
+                    <option value="todas">
+                        Todas las categorías
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- REGRESAR -->
+
+            <a
+                href="index.html"
+                class="boton-regresar"
+                aria-label="Regresar al inicio"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+
+                    <polyline
+                        points="15 18 9 12 15 6"
+                    ></polyline>
+
+                    <line
+                        x1="9"
+                        y1="12"
+                        x2="21"
+                        y2="12"
+                    ></line>
+
+                </svg>
+
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             RESULTADOS
+        ================================================== -->
+
+        <section class="resultados-catalogo">
+
+
+            <!-- CONTADOR -->
+
+            <div class="barra-resultados">
+
+                <span id="texto-resultados">
+                    Cargando SETS...
+                </span>
+
+            </div>
+
+
+            <!-- GRID -->
+
+            <div
+                class="grid-catalogo"
+                id="grid-catalogo"
+            >
+
+                <div class="estado-catalogo">
+
+                    <div class="loader"></div>
+
+                    <p>
+                        Cargando SETS...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SIN RESULTADOS -->
+
+            <div
+                class="sin-resultados"
+                id="sin-resultados"
+            >
+
+                <div class="sin-resultados-icono">
+                    🔎
+                </div>
+
+                <h2>
+                    No encontramos SETS
+                </h2>
+
+                <p>
+                    Intenta con otro nombre o categoría.
+                </p>
+
+                <button
+                    id="limpiar-filtros"
+                    type="button"
+                >
+
+                    Limpiar filtros
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer id="contacto">
+
+        <p>
+            © 2026 Alan Hinojosa · Catálogo Juguetes
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="js/config.js"></script>
+
+    <script src="js/sheets.js"></script>
+
+    <script src="js/catalogo-sets.js"></script>
+
+
+</body>
+
+</html>

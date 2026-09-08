@@ -1,0 +1,992 @@
+/* =========================================================
+   CATÁLOGO COMPLETO
+========================================================= */
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+.catalogo-completo {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding-top: 125px;
+
+    background: var(--fondo);
+
+}
+
+
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
+.catalogo-encabezado {
+
+    width: 100%;
+
+    padding:
+        55px
+        5vw
+        30px;
+
+}
+
+
+.catalogo-etiqueta {
+
+    display: inline-block;
+
+    padding:
+        6px
+        14px;
+
+    border:
+        1px solid
+        var(--verde);
+
+    border-radius: 30px;
+
+    color: var(--verde);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+.catalogo-encabezado h1 {
+
+    margin-top: 15px;
+
+    font-family: 'Anton', sans-serif;
+
+    font-size:
+        clamp(
+            42px,
+            7vw,
+            80px
+        );
+
+    line-height: .95;
+
+    color: white;
+
+}
+
+
+.catalogo-encabezado p {
+
+    margin-top: 12px;
+
+    color: #aaa;
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================================
+   HERRAMIENTAS
+========================================================= */
+
+.herramientas-catalogo {
+
+    width: 100%;
+
+    padding:
+        10px
+        5vw
+        35px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(200px, 1fr)
+        220px
+        60px;
+
+    gap: 18px;
+
+    align-items: center;
+
+}
+
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
+.buscador {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    background: white;
+
+    border-radius: 30px;
+
+    transition:
+        box-shadow .3s ease,
+        transform .3s ease;
+
+}
+
+
+.buscador:focus-within {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(170,255,80,.12);
+
+}
+
+
+.icono-busqueda {
+
+    width: 48px;
+
+    min-width: 48px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.icono-busqueda svg {
+
+    width: 25px;
+
+    height: 25px;
+
+    fill: none;
+
+    stroke: #17132f;
+
+    stroke-width: 2;
+
+    stroke-linecap: round;
+
+}
+
+
+.buscador input {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 16px;
+
+    color: #222;
+
+}
+
+
+.buscador input::placeholder {
+
+    color: #777;
+
+}
+
+
+.limpiar-busqueda {
+
+    width: 35px;
+
+    height: 35px;
+
+    margin-right: 8px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #777;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    display: none;
+
+}
+
+
+.limpiar-busqueda.visible {
+
+    display: block;
+
+}
+
+
+.limpiar-busqueda:hover {
+
+    background: #eee;
+
+    color: #222;
+
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+.filtro-categoria {
+
+    position: relative;
+
+}
+
+
+.filtro-categoria select {
+
+    width: 100%;
+
+    height: 52px;
+
+    padding:
+        0
+        18px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    outline: none;
+
+    background: white;
+
+    color: #555;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    background-image:
+
+        linear-gradient(
+            45deg,
+            transparent 50%,
+            #777 50%
+        ),
+
+        linear-gradient(
+            135deg,
+            #777 50%,
+            transparent 50%
+        );
+
+    background-position:
+
+        calc(100% - 19px) 22px,
+
+        calc(100% - 13px) 22px;
+
+    background-size:
+        6px 6px,
+        6px 6px;
+
+    background-repeat: no-repeat;
+
+}
+
+
+.filtro-categoria select:focus {
+
+    box-shadow:
+        0 0 0 3px
+        rgba(170,255,80,.25);
+
+}
+
+
+/* =========================================================
+   BOTÓN REGRESAR
+========================================================= */
+
+.boton-regresar {
+
+    width: 52px;
+
+    height: 52px;
+
+    border:
+        2px solid
+        white;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-decoration: none;
+
+    transition:
+        .3s ease;
+
+}
+
+
+.boton-regresar svg {
+
+    width: 27px;
+
+    height: 27px;
+
+    fill: none;
+
+    stroke: white;
+
+    stroke-width: 2.5;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+}
+
+
+.boton-regresar:hover {
+
+    background: var(--verde);
+
+    border-color: var(--verde);
+
+    transform:
+        translateX(-4px);
+
+}
+
+
+.boton-regresar:hover svg {
+
+    stroke: var(--fondo);
+
+}
+
+
+/* =========================================================
+   RESULTADOS
+========================================================= */
+
+.resultados-catalogo {
+
+    width: 100%;
+
+    padding:
+        0
+        5vw
+        100px;
+
+}
+
+
+.barra-resultados {
+
+    min-height: 30px;
+
+    margin-bottom: 18px;
+
+    color: #999;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid-catalogo {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
+
+    gap: 16px;
+
+}
+
+
+/* =========================================================
+   TARJETA
+========================================================= */
+
+.tarjeta-catalogo {
+
+    position: relative;
+
+    background: var(--tarjeta);
+
+    border:
+        1.5px solid
+        white;
+
+    border-radius: 20px;
+
+    padding: 7px;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    transform:
+        translateY(18px)
+        scale(.97);
+
+    animation:
+        aparecerTarjeta .45s ease forwards;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+.tarjeta-catalogo:hover {
+
+    transform:
+        translateY(-7px);
+
+    box-shadow:
+        0 18px 35px
+        rgba(0,0,0,.25);
+
+}
+
+
+@keyframes aparecerTarjeta {
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGEN
+========================================================= */
+
+.tarjeta-catalogo-imagen {
+
+    width: 100%;
+
+    height: 210px;
+
+    padding: 5px;
+
+    border-radius:
+        14px;
+
+    background: #ddd;
+
+    overflow: hidden;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+.tarjeta-catalogo-imagen img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    transition:
+        transform .4s ease;
+
+}
+
+
+.tarjeta-catalogo:hover
+.tarjeta-catalogo-imagen img {
+
+    transform:
+        scale(1.05);
+
+}
+
+
+/* =========================================================
+   INFORMACIÓN
+========================================================= */
+
+.tarjeta-catalogo-info {
+
+    padding:
+        11px
+        4px
+        8px;
+
+}
+
+
+.tarjeta-catalogo-titulo {
+
+    min-height: 42px;
+
+    color: white;
+
+    font-size: 14px;
+
+    line-height: 1.35;
+
+    font-weight: 700;
+
+}
+
+
+.tarjeta-catalogo-precio {
+
+    margin-top: 7px;
+
+    color: var(--verde);
+
+    font-size: 29px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================================
+   CATEGORÍA
+========================================================= */
+
+.tarjeta-catalogo-categoria {
+
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding:
+        4px
+        8px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,.12);
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   CANTIDAD
+========================================================= */
+
+.tarjeta-catalogo-cantidad {
+
+    margin-top: 7px;
+
+    color: #ddd;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   ESTADO CARGANDO
+========================================================= */
+
+.estado-catalogo {
+
+    grid-column:
+        1 / -1;
+
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #aaa;
+
+}
+
+
+.loader {
+
+    width: 40px;
+
+    height: 40px;
+
+    border:
+        3px solid
+        rgba(255,255,255,.15);
+
+    border-top-color:
+        var(--verde);
+
+    border-radius: 50%;
+
+    animation:
+        girarLoader .8s linear infinite;
+
+}
+
+
+@keyframes girarLoader {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   SIN RESULTADOS
+========================================================= */
+
+.sin-resultados {
+
+    display: none;
+
+    min-height: 300px;
+
+    text-align: center;
+
+    padding: 50px 20px;
+
+}
+
+
+.sin-resultados.visible {
+
+    display: block;
+
+    animation:
+        aparecerTarjeta .4s ease;
+
+}
+
+
+.sin-resultados-icono {
+
+    font-size: 45px;
+
+}
+
+
+.sin-resultados h2 {
+
+    margin-top: 10px;
+
+    color: white;
+
+}
+
+
+.sin-resultados p {
+
+    margin-top: 7px;
+
+    color: #999;
+
+}
+
+
+.sin-resultados button {
+
+    margin-top: 20px;
+
+    padding:
+        10px
+        20px;
+
+    border:
+        1px solid
+        white;
+
+    border-radius: 30px;
+
+    background: transparent;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+
+.sin-resultados button:hover {
+
+    background: white;
+
+    color: var(--fondo);
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .grid-catalogo {
+
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0,1fr)
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   MOVIL
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .catalogo-completo {
+
+        padding-top: 105px;
+
+    }
+
+
+    .catalogo-encabezado {
+
+        padding:
+            35px
+            14px
+            20px;
+
+    }
+
+
+    .catalogo-encabezado h1 {
+
+        font-size: 48px;
+
+    }
+
+
+    .herramientas-catalogo {
+
+        padding:
+            10px
+            14px
+            25px;
+
+        grid-template-columns:
+            minmax(0,1fr)
+            52px;
+
+        gap: 10px;
+
+    }
+
+
+    .buscador {
+
+        grid-column:
+            1 / -1;
+
+    }
+
+
+    .filtro-categoria {
+
+        width: 100%;
+
+    }
+
+
+    .filtro-categoria select {
+
+        height: 50px;
+
+    }
+
+
+    .boton-regresar {
+
+        width: 50px;
+
+        height: 50px;
+
+    }
+
+
+    .resultados-catalogo {
+
+        padding:
+            0
+            14px
+            80px;
+
+    }
+
+
+    .grid-catalogo {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
+
+        gap: 9px;
+
+    }
+
+
+    .tarjeta-catalogo {
+
+        border-radius: 17px;
+
+    }
+
+
+    .tarjeta-catalogo-imagen {
+
+        height: 155px;
+
+    }
+
+
+    .tarjeta-catalogo-info {
+
+        padding:
+            9px
+            3px
+            7px;
+
+    }
+
+
+    .tarjeta-catalogo-titulo {
+
+        min-height: 38px;
+
+        font-size: 12px;
+
+    }
+
+
+    .tarjeta-catalogo-precio {
+
+        font-size: 24px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOVIL PEQUEÑO
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .catalogo-encabezado h1 {
+
+        font-size: 42px;
+
+    }
+
+
+    .grid-catalogo {
+
+        gap: 7px;
+
+    }
+
+
+    .tarjeta-catalogo-imagen {
+
+        height: 130px;
+
+    }
+
+}

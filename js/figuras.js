@@ -318,9 +318,8 @@ function configurarBotonFiguras(seccion) {
         "click",
         () => {
 
-            console.log(
-                "Abrir catálogo completo de FIGURAS"
-            );
+            window.location.href =
+                "catalogo-figuras.html";
 
         }
     );

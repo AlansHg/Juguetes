@@ -319,14 +319,8 @@ function configurarBotonSets(seccion) {
         "click",
         () => {
 
-            console.log(
-                "Abrir catálogo completo de SETS"
-            );
-
-            /*
-             * Posteriormente aquí podemos
-             * abrir sets.html o un modal.
-             */
+            window.location.href =
+                "catalogo.html";
 
         }
     );
