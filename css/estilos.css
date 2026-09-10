@@ -1,1462 +1,800 @@
-/* =====================================================
-   VARIABLES
-===================================================== */
-
+/* VARIABLES */
 :root {
-
     --fondo: #100c27;
-
     --tarjeta: #4d4a87;
-
     --verde: #aaff50;
-
     --blanco: #ffffff;
-
     --gris: #d8d8d8;
-
     --negro: #050505;
-
 }
 
-
-/* =====================================================
-   RESET
-===================================================== */
-
+/* RESET*/
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
 }
-
 
 html {
-
     width: 100%;
-
     overflow-x: hidden;
-
     scroll-behavior: smooth;
-
 }
-
 
 body {
-
     width: 100%;
-
     min-width: 0;
-
     font-family: 'Inter', sans-serif;
-
     background: var(--fondo);
-
     color: white;
-
     overflow-x: hidden;
-
 }
-
 
 main {
-
     width: 100%;
-
     min-width: 0;
-
 }
 
 
-/* =====================================================
-   PANTALLA DE BIENVENIDA
-===================================================== */
 
+
+
+
+/* PANTALLA DE BIENVENIDA */
 #pantalla-bienvenida {
-
     position: fixed;
-
     inset: 0;
-
     z-index: 9999;
-
     background: var(--negro);
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    transition:
-        opacity .8s ease,
-        visibility .8s ease;
-
+    transition: opacity .8s ease, visibility .8s ease;
 }
-
 
 #pantalla-bienvenida.oculta {
-
     opacity: 0;
-
     visibility: hidden;
-
 }
-
 
 .bienvenida-contenido {
-
     text-align: center;
-
-    animation:
-        aparecerLogo 1.2s ease;
-
+    animation: aparecerLogo 1.2s ease;
 }
-
 
 .logo-bienvenida {
-
     width: 280px;
-
     height: 280px;
-
     border-radius: 50%;
-
     overflow: hidden;
-
     background: #050505;
-
     margin: auto;
-
 }
-
 
 .logo-bienvenida img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: contain;
-
 }
-
 
 .bienvenida-contenido h1 {
-
     margin-top: 20px;
-
     font-family: 'Anton', sans-serif;
-
     color: white;
-
     letter-spacing: 2px;
-
 }
-
 
 @keyframes aparecerLogo {
-
     from {
-
         opacity: 0;
-
         transform: scale(.4);
-
     }
-
     60% {
-
         transform: scale(1.1);
-
     }
-
     to {
-
         opacity: 1;
-
         transform: scale(1);
-
     }
-
 }
 
 
-/* =====================================================
-   NAVBAR
-===================================================== */
 
+
+
+
+/* NAVBAR*/
 .navbar {
-
     position: fixed;
-
     top: 18px;
-
     left: 2.2vw;
-
     right: 2.2vw;
-
     height: 76px;
-
     z-index: 1000;
-
     padding: 8px 25px;
-
     border-radius: 50px;
-
     background: rgba(3, 3, 3, .72);
-
     backdrop-filter: blur(10px);
-
     -webkit-backdrop-filter: blur(10px);
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
 }
-
 
 .navbar-logo {
-
     display: flex;
-
     align-items: center;
-
     gap: 10px;
-
     height: 100%;
-
     min-width: 0;
-
 }
-
 
 .logo-circulo {
-
     width: 58px;
-
     height: 58px;
-
     min-width: 58px;
-
     border-radius: 50%;
-
     overflow: hidden;
-
     background: #050505;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
 }
-
 
 .logo-circulo img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: contain;
-
 }
-
 
 .logo-texto {
-
     display: flex;
-
     flex-direction: column;
-
     color: #ffdddd;
-
     line-height: 1;
-
 }
-
 
 .logo-texto strong {
-
-    font-size:
-        clamp(18px, 2vw, 27px);
-
+    font-size: clamp(18px, 2vw, 27px);
     font-weight: 800;
-
 }
-
 
 .logo-texto span {
-
     margin-top: 5px;
-
     font-family: 'Anton', sans-serif;
-
-    font-size:
-        clamp(10px, 1vw, 15px);
-
+    font-size: clamp(10px, 1vw, 15px);
 }
 
 
-/* =====================================================
-   MENU ESCRITORIO
-===================================================== */
-
+/* MENU ESCRITORIO */
 .menu-desktop {
-
     display: flex;
-
     align-items: center;
-
     gap: 35px;
-
 }
-
 
 .menu-desktop a {
-
     color: white;
-
     text-decoration: none;
-
     font-weight: 600;
-
     transition: .3s;
-
 }
-
 
 .menu-desktop a:hover {
-
     color: var(--verde);
-
 }
 
 
-/* =====================================================
-   BOTON HAMBURGUESA
-===================================================== */
-
+/* BOTON HAMBURGUESA */
 .boton-menu {
-
     width: 55px;
-
     height: 55px;
-
     padding: 0;
-
     margin: 0;
-
     border: none;
-
     background: transparent;
-
     cursor: pointer;
-
     display: none;
-
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
-
     gap: 7px;
-
     flex-shrink: 0;
-
 }
-
 
 .boton-menu span {
-
     width: 42px;
-
     height: 3px;
-
     background: white;
-
     border-radius: 5px;
-
     transition: .3s;
-
 }
-
 
 .boton-menu.abierto span:nth-child(1) {
-
-    transform:
-        translateY(10px)
-        rotate(45deg);
-
+    transform: translateY(10px) rotate(45deg);
 }
-
 
 .boton-menu.abierto span:nth-child(2) {
-
     opacity: 0;
-
 }
-
 
 .boton-menu.abierto span:nth-child(3) {
-
-    transform:
-        translateY(-10px)
-        rotate(-45deg);
-
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 
-/* =====================================================
-   MENU MOVIL
-===================================================== */
 
+
+
+
+
+/* MENU MOVIL */
 .menu-movil {
-
     position: fixed;
-
     top: 95px;
-
     right: 3vw;
-
     z-index: 999;
-
     width: 230px;
-
     padding: 15px;
-
     border-radius: 20px;
-
     background: rgba(12, 12, 12, .92);
-
     backdrop-filter: blur(10px);
-
     display: flex;
-
     flex-direction: column;
-
     gap: 5px;
-
     opacity: 0;
-
     visibility: hidden;
-
     transform: translateY(-15px);
-
     transition: .3s;
-
 }
-
 
 .menu-movil.abierto {
-
     opacity: 1;
-
     visibility: visible;
-
     transform: translateY(0);
-
 }
-
 
 .menu-movil a {
-
     padding: 13px;
-
     color: white;
-
     text-decoration: none;
-
     border-radius: 10px;
-
     font-weight: 600;
-
 }
-
 
 .menu-movil a:hover {
-
     background: var(--verde);
-
     color: var(--fondo);
-
 }
 
 
-/* =====================================================
-   HERO
-===================================================== */
 
+
+
+
+
+/* HERO*/
 .hero-contenedor {
-
     position: relative;
-
     width: 100%;
-
-    height:
-        clamp(380px, 55vw, 650px);
-
+    height: clamp(380px, 55vw, 650px);
     overflow: hidden;
-
     background: #d8d8d8;
-
 }
-
 
 .hero-slider {
-
     width: 100%;
-
     height: 100%;
-
     position: relative;
-
 }
-
 
 .hero-slide {
-
     position: absolute;
-
     inset: 0;
-
     opacity: 0;
-
     transform: translateX(40px);
-
-    transition:
-        opacity .7s ease,
-        transform .7s ease;
-
+    transition: opacity .7s ease, transform .7s ease;
     pointer-events: none;
-
 }
-
 
 .hero-slide.activo {
-
     opacity: 1;
-
     transform: translateX(0);
-
     pointer-events: auto;
-
 }
-
 
 .hero-slide img {
-
     width: 100%;
-
     height: 100%;
-
     object-fit: cover;
-
     display: block;
-
 }
-
 
 .hero-flecha {
-
     position: absolute;
-
     top: 50%;
-
     transform: translateY(-50%);
-
     background: transparent;
-
     border: none;
-
     color: white;
-
-    font-size:
-        clamp(50px, 7vw, 80px);
-
+    font-size: clamp(50px, 7vw, 80px);
     cursor: pointer;
-
     z-index: 10;
-
-    text-shadow:
-        0 2px 10px rgba(0,0,0,.5);
-
+    text-shadow: 0 2px 10px rgba(0,0,0,.5);
     transition: .3s;
-
 }
-
 
 .hero-flecha:hover {
-
     color: var(--verde);
-
-    transform:
-        translateY(-50%)
-        scale(1.1);
-
+    transform: translateY(-50%) scale(1.1);
 }
-
 
 .hero-anterior {
-
     left: 2vw;
-
 }
-
 
 .hero-siguiente {
-
     right: 2vw;
-
 }
 
 
-/* =====================================================
-   PUNTOS HERO
-===================================================== */
-
+/* PUNTOS HERO */
 .hero-puntos {
-
     position: absolute;
-
     bottom: 48px;
-
     left: 50%;
-
     transform: translateX(-50%);
-
     display: flex;
-
     gap: 8px;
-
     z-index: 20;
-
 }
-
 
 .hero-punto {
-
     width: 12px;
-
     height: 12px;
-
     border: 2px solid white;
-
     border-radius: 50%;
-
     background: rgba(0,0,0,.4);
-
     cursor: pointer;
-
     transition: .3s;
-
 }
-
 
 .hero-punto.activo {
-
     background: white;
-
     transform: scale(1.15);
-
 }
-
 
 .hero-sin-portadas,
 .hero-cargando {
-
     width: 100%;
-
     height: 100%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     color: #222;
-
     font-size: 20px;
-
 }
 
 
-/* =====================================================
-   CURVA
-===================================================== */
 
+
+/* CURVA */
 .curva-hero {
-
     height: 10px;
-
     position: relative;
-
     background: var(--fondo);
-
 }
-
 
 .curva-hero::after {
-
     content: "";
-
     position: absolute;
-
     left: -5%;
-
     right: -5%;
-
     bottom: -100px;
-
     height: 150px;
-
     background: var(--fondo);
-
-    border-radius:
-        40% 40% 0 0;
-
+    border-radius: 40% 40% 0 0;
 }
 
 
-/* =====================================================
-   CATALOGO
-===================================================== */
 
+/* CATALOGO */
 .catalogo {
-
     position: relative;
-
     z-index: 5;
-
     display: grid;
-
-    grid-template-columns:
-        95px minmax(0, 1fr);
-
+    grid-template-columns: 95px minmax(0, 1fr);
     gap: 25px;
-
-    padding:
-        30px 18px 100px;
-
+    padding: 30px 18px 100px;
     background: var(--fondo);
-
 }
 
 
-/* =====================================================
-   CATEGORIAS
-===================================================== */
-
+/* CATEGORIAS */
 .categorias {
-
     width: 95px;
-
     position: sticky;
-
     top: 110px;
-
     align-self: start;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 7px;
-
     padding: 7px;
-
-    border: 3px solid white;
-
+    border: 3px solid rgb(240, 8, 8);
     border-radius: 20px;
-
-    background: #d8d8d8;
-
+    background: var(--fondo);
 }
-
 
 .categoria-boton {
-
-    width: 100%;
-
     min-height: 78px;
-
     border: none;
-
     border-radius: 12px;
-
-    background: #b8b8b8;
-
+    background: rgb(46, 41, 68);
     cursor: pointer;
-
     font-size: 13px;
-
     font-weight: 700;
-
     transition: .3s;
-
     padding: 5px;
-
+    color: white;
 }
-
 
 .categoria-boton:hover {
-
     background: #d0d0d0;
-
 }
-
 
 .categoria-boton.activo {
-
-    background: var(--verde);
-
+    background: rgb(75, 151, 4);
 }
-
 
 .categorias-cargando {
-
     color: #222;
-
     font-size: 11px;
-
     text-align: center;
-
     padding: 15px 2px;
-
 }
 
 
-/* =====================================================
-   CONTENIDO
-===================================================== */
-
+/* CONTENIDO */
 .contenido-productos {
-
     width: 100%;
-
     min-width: 0;
-
 }
 
 
-/* =====================================================
-   SECCIONES
-===================================================== */
 
+/* SECCIONES */
 .seccion-productos {
-
     margin-bottom: 70px;
-
     scroll-margin-top: 120px;
-
 }
-
 
 .titulo-seccion {
-
     font-family: 'Anton', sans-serif;
-
-    font-size:
-        clamp(45px, 6vw, 75px);
-
+    font-size: clamp(45px, 6vw, 75px);
     color: #dedede;
-
     line-height: 1;
-
     margin-bottom: 20px;
-
 }
 
 
-/* =====================================================
-   GRID
-===================================================== */
-
+/* GRID */
 .grid-productos {
-
     width: 100%;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
-
 }
 
 
-/* =====================================================
-   TARJETA
-===================================================== */
-
+/* TARJETA */
 .tarjeta {
-
     background: var(--fondo);
-
-    border: 1.5px solid white;
-
+    border: 1.5px solid rgb(243, 0, 0);
     border-radius: 20px;
-
     padding: 7px;
-
     overflow: hidden;
-
     transition: .3s;
-
 }
-
 
 .tarjeta:hover {
-
-    transform:
-        translateY(-6px);
-
+    transform: translateY(-6px);
 }
 
 
-/* =====================================================
-   IMAGEN
-===================================================== */
-
+/* IMAGEN */
 .tarjeta-imagen {
-
     width: 100%;
-
     height: 160px;
-
     padding: 5px;
-
-    border-radius:
-        10px 10px 0 0;
-
+    border-radius: 15px 15px 0 0;
     overflow: hidden;
-
     background: white;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
 }
-
 
 .tarjeta-imagen img {
-
     width: 100%;
-
-    height: 100%;
-
+    height: auto;
     object-fit: contain;
-
     display: block;
-
 }
 
 
-/* =====================================================
-   INFORMACION
-===================================================== */
-
+/* INFORMACION*/
 .tarjeta-info {
-
-    padding:
-        10px 3px 5px;
-
+    padding: 10px 3px 5px;
 }
-
 
 .tarjeta-titulo {
-
     min-height: 42px;
-
-    font-size:
-        clamp(12px, 1.2vw, 15px);
-
+    font-size: clamp(20px, 1.2vw, 15px);
     line-height: 1.3;
-
     font-weight: 700;
-
 }
-
 
 .tarjeta-precio {
-
     margin-top: 7px;
-
-    color: var(--verde);
-
-    font-size:
-        clamp(24px, 2.3vw, 30px);
-
+    color: yellow;
+    font-size: clamp(24px, 2.3vw, 30px);
     font-weight: 800;
-
 }
 
-/* =====================================================
-   CATEGORIA DEL PRODUCTO
-===================================================== */
-
+/* CATEGORIA DEL PRODUCTO */
 .tarjeta-categoria {
-
     margin-top: 8px;
-
     display: inline-block;
-
     padding: 4px 8px;
-
     border-radius: 8px;
-
     background: #4d4a87;
-
     color: white;
-
     font-size: 11px;
-
     font-weight: 700;
-
 }
 
-
-/* =====================================================
-   CANTIDAD
-===================================================== */
-
+/* CANTIDAD */
 .tarjeta-cantidad {
-
     margin-top: 6px;
-
     color: #d8d8d8;
-
     font-size: 12px;
-
     font-weight: 600;
-
 }
 
-
-/* =====================================================
-   BOTON VER TODOS
-===================================================== */
-
+/* BOTON VER TODOS */
 .boton-ver-todos {
-
     display: block;
-
-    margin:
-        25px auto 0;
-
-    padding:
-        9px 24px;
-
+    margin: 25px auto 0;
+    padding: 9px 24px;
     background: transparent;
-
     color: white;
-
-    border:
-        1.5px solid white;
-
+    border: 1.5px solid white;
     border-radius: 30px;
-
     font-size: 16px;
-
     cursor: pointer;
-
     transition: .3s;
-
 }
-
 
 .boton-ver-todos:hover {
-
     background: white;
-
     color: var(--fondo);
-
 }
 
 
-/* =====================================================
-   CARGANDO
-===================================================== */
 
+
+
+
+/* CARGANDO */
 .cargando {
-
     padding: 80px 20px;
-
     text-align: center;
-
     font-size: 18px;
-
 }
 
 
-/* =====================================================
-   ERROR
-===================================================== */
 
+
+
+
+
+/* ERROR */
 .error-catalogo {
-
     padding: 50px 20px;
-
     text-align: center;
-
     color: #ff7777;
-
 }
 
 
-/* =====================================================
-   FOOTER
-===================================================== */
 
+
+
+
+
+/* FOOTER */
 footer {
-
-    padding:
-        50px 20px;
-
+    padding: 50px 20px;
     text-align: center;
-
     color: #aaa;
-
     background: #08061a;
-
 }
 
 
-/* =====================================================
-   TABLET
-===================================================== */
 
+
+
+
+
+/* TABLET */
 @media (max-width: 1000px) {
-
     .menu-desktop {
-
         display: none;
-
     }
-
 
     .boton-menu {
-
         display: flex;
-
     }
-
 
     .grid-productos {
-
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr));
-
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-
 }
 
 
-/* =====================================================
-   MOVIL
-===================================================== */
-
+/* MOVIL */
 @media (max-width: 650px) {
-
-
     /* NAV */
-
     .navbar {
-
         top: 12px;
-
         left: 12px;
-
         right: 12px;
-
         width: auto;
-
         height: 68px;
-
-        padding:
-            5px 12px;
-
+        padding: 5px 12px;
     }
-
 
     .navbar-logo {
-
         gap: 8px;
-
         min-width: 0;
-
         flex: 1;
-
     }
-
 
     .logo-circulo {
-
         width: 50px;
-
         height: 50px;
-
         min-width: 50px;
-
     }
-
 
     .logo-texto {
-
         justify-content: center;
-
         min-width: 0;
-
     }
-
 
     .logo-texto strong {
-
         font-size: 17px;
-
         line-height: 1;
-
         white-space: nowrap;
-
     }
-
 
     .logo-texto span {
-
         margin-top: 4px;
-
         font-size: 9px;
-
         line-height: 1;
-
         white-space: nowrap;
-
     }
-
 
     .boton-menu {
-
         width: 48px;
-
         height: 48px;
-
         min-width: 48px;
-
     }
-
 
     .boton-menu span {
-
         width: 38px;
-
     }
-
 
     /* MENU */
-
     .menu-movil {
-
         top: 88px;
-
         right: 12px;
-
     }
-
 
     /* HERO */
-
     .hero-contenedor {
-
         height: 380px;
-
     }
-
 
     .hero-flecha {
-
         font-size: 45px;
-
     }
-
 
     .hero-puntos {
-
         bottom: 35px;
-
     }
-
 
     /* CATALOGO */
-
     .catalogo {
-
         display: block;
-
-        padding:
-            25px 14px 80px;
-
+        padding: 25px 14px 80px;
     }
-
 
     /* CATEGORIAS */
-
     .categorias {
-
         position: sticky;
-
         top: 90px;
-
         z-index: 50;
-
         width: 100%;
-
         flex-direction: row;
-
         overflow-x: auto;
-
         margin-bottom: 30px;
-
         scrollbar-width: none;
-
     }
-
 
     .categorias::-webkit-scrollbar {
-
         display: none;
-
     }
-
 
     .categoria-boton {
-
         min-width: 85px;
-
         min-height: 55px;
-
         flex-shrink: 0;
-
     }
-
 
     /* PRODUCTOS */
-
     .grid-productos {
-
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
-
     }
-
 
     .tarjeta-imagen {
-
         height: 145px;
-
     }
-
 
     .titulo-seccion {
-
         font-size: 50px;
-
     }
-
 }
 
 
-/* =====================================================
-   MOVIL PEQUEÑO
-===================================================== */
-
+/* MOVIL PEQUEÑO*/
 @media (max-width: 400px) {
-
-
     .navbar {
-
         left: 8px;
-
         right: 8px;
-
-        padding:
-            5px 9px;
-
+        padding: 5px 9px;
     }
-
 
     .logo-circulo {
-
         width: 46px;
-
         height: 46px;
-
         min-width: 46px;
-
     }
-
 
     .logo-texto strong {
-
         font-size: 15px;
-
     }
-
 
     .logo-texto span {
-
         font-size: 8px;
-
     }
-
 
     .boton-menu span {
-
         width: 34px;
-
     }
-
 
     .titulo-seccion {
-
         font-size: 43px;
-
     }
-
 
     .tarjeta-imagen {
-
         height: 125px;
-
     }
-
 
     .tarjeta-titulo {
-
         font-size: 11px;
-
     }
-
 
     .tarjeta-precio {
-
         font-size: 23px;
-
     }
-
 }

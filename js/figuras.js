@@ -271,7 +271,7 @@ function crearTarjetaFigura(figura) {
 
             <div class="tarjeta-precio">
 
-                $${precio}
+                ${precio}
 
             </div>
 
@@ -325,3 +325,4 @@ function configurarBotonFiguras(seccion) {
     );
 
 }
+

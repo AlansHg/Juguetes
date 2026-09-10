@@ -640,7 +640,7 @@ function crearTarjetaFigura(
 
                 <strong class="tarjeta-catalogo-precio">
 
-                    $${precio}
+                    ${precio}
 
                 </strong>
 
