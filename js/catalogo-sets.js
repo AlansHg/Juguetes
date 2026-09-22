@@ -441,7 +441,11 @@ function crearTarjetaSet(
 
     const precio =
         producto.precio ||
-        "Consultar";
+        "Consulta precio";
+
+    const categoria =
+        producto.categoria ||
+        "Sin categoría";
 
 
     const imagen =
@@ -467,6 +471,12 @@ function crearTarjetaSet(
 
 
         <div class="tarjeta-info">
+
+        <span class="tarjeta-catalogo-categoria">
+
+                ${categoria}
+
+            </span>
 
             <h2 class="tarjeta-titulo">
 

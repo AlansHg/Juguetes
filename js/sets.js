@@ -218,7 +218,7 @@ function crearTarjetaSets(producto) {
 
     const precio =
         producto.precio ||
-        "0";
+        "Consultar precio";
 
 
     const imagen =

@@ -504,7 +504,7 @@ main {
 /* IMAGEN */
 .tarjeta-imagen {
     width: 100%;
-    height: 160px;
+    height: auto;
     padding: 5px;
     border-radius: 15px 15px 0 0;
     overflow: hidden;
@@ -515,8 +515,8 @@ main {
 }
 
 .tarjeta-imagen img {
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
     object-fit: contain;
     display: block;
 }
@@ -747,7 +747,7 @@ footer {
     }
 
     .tarjeta-imagen {
-        height: 145px;
+        height: 150px;
     }
 
     .titulo-seccion {
