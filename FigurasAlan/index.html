@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Catálogo | Figuras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- NAVEGACION SUPERIOR -->
+    <header class="topbar">
+        <a href="#" class="brand" id="brandHome">
+            <div class="brand-logo">
+                <img src="../img/Logotipo.png" alt="">
+            </div>
+            <div class="brand-info">
+                <strong>FIGURAS</strong>
+                <span>CATALOGO</span>
+            </div>
+        </a>
+
+        <div class="search-container">
+            <span class="search-icon">⌕</span>
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Buscar Figuras..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div class="price-filters">
+            <input
+                type="number"
+                id="minPrice"
+                placeholder="Mín. $"
+                min="0"
+            >
+            <span>-</span>
+            <input
+                type="number"
+                id="maxPrice"
+                placeholder="Máx. $"
+                min="0"
+            >
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- HERO -->
+        <section class="hero-section">
+            <div class="hero" id="hero">
+
+                <img id="heroImage" src="" alt="Portada del catálogo">
+
+                <div class="hero-title" id="heroTitle"></div>
+
+                <button class="hero-arrow hero-prev"
+                    id="heroPrev" aria-label="Imagen anterior">
+                    &#10094;
+                </button>
+
+                <button class="hero-arrow hero-next"
+                    id="heroNext" aria-label="Imagen siguiente">
+                    &#10095;
+                </button>
+
+                <div class="hero-dots" id="heroDots"></div>
+
+            </div>
+        </section>
+
+        <!-- CATEGORIAS -->
+        <section class="categories-section" id="categoriesSection">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Categorias</h2>
+                    <p>Desliza para ver las categorias -></p>
+                </div>
+            </div>
+
+            <div class="categories-list" id="categoriesList">
+                <!-- Categorías generadas por JavaScript -->
+            </div>
+
+        </section>
+
+        <!-- PRODUCTOS -->
+        <section class="products-section" id="productsSection">
+
+            <div class="products-heading">
+                <div>
+                    <h2 id="productsTitle">Todos los productos</h2>
+                    <p id="productsCount">Cargando catálogo...</p>
+                </div>
+
+                <button class="clear-filters" id="clearFilters">
+                    Limpiar filtros
+                </button>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+
+                <div class="loading-message">
+                    Cargando productos...
+                </div>
+
+            </div>
+
+            <div class="pagination-message" id="emptyMessage" hidden>
+                <span>⌕</span>
+                <h3>No encontramos productos</h3>
+                <p>Intenta cambiar tu búsqueda o filtros.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- MODAL DE PRODUCTO -->
+    <div class="modal-overlay" id="productModal">
+
+        <div class="product-modal">
+
+            <button class="modal-close" id="modalClose">
+                &times;
+            </button>
+
+            <div class="modal-content" id="modalContent">
+                <!-- Información del producto -->
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- NAVEGACION INFERIOR -->
+    <nav class="bottom-nav">
+
+        <a href="../index.html" class="linkfig">
+            <button class="nav-item" data-view="figures">
+            <span class="nav-icon">⌂</span>
+            <span>Sets</span>
+        </button>
+        </a>
+
+        <button class="nav-item active" data-view="home">
+            <span class="nav-icon">▦</span>
+            <span>Figuras</span>
+        </button>
+
+        <button class="nav-item" data-view="saved">
+            <span class="nav-icon">♡</span>
+            <span>Guardados</span>
+            <span class="saved-counter" id="savedCounter">0</span>
+        </button>
+
+    </nav>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
