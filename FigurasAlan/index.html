@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#ffffff">
     <title>Catálogo | Figuras</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
 
@@ -24,32 +25,23 @@
 
         <div class="search-container">
             <span class="search-icon">⌕</span>
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="Buscar Figuras..."
-                autocomplete="off"
-            >
+            <input type="search" id="searchInput" placeholder="Buscar Figuras..." autocomplete="off">
         </div>
 
         <div class="price-filters">
-            <input
-                type="number"
-                id="minPrice"
-                placeholder="Mín. $"
-                min="0"
-            >
+            <input type="number" id="minPrice" placeholder="Mín. $" min="0">
             <span>-</span>
-            <input
-                type="number"
-                id="maxPrice"
-                placeholder="Máx. $"
-                min="0"
-            >
+            <input type="number" id="maxPrice" placeholder="Máx. $" min="0">
         </div>
     </header>
 
+
+
+
+
+    <!-- CONTENIDO -->
     <main class="main-content">
+
         <!-- HERO -->
         <section class="hero-section">
             <div class="hero" id="hero">
@@ -79,7 +71,7 @@
             <div class="section-heading">
                 <div>
                     <h2>Categorias</h2>
-                    <p>Desliza para ver las categorias -></p>
+                    <p>Desliza para ver las categorias ➔</p>
                 </div>
             </div>
 
@@ -121,6 +113,10 @@
 
     </main>
 
+
+
+
+
     <!-- MODAL DE PRODUCTO -->
     <div class="modal-overlay" id="productModal">
 
@@ -138,23 +134,41 @@
 
     </div>
 
+
+
+
+    
     <!-- NAVEGACION INFERIOR -->
     <nav class="bottom-nav">
 
         <a href="../index.html" class="linkfig">
             <button class="nav-item" data-view="figures">
-            <span class="nav-icon">⌂</span>
-            <span>Sets</span>
-        </button>
+                <i class="fa-solid fa-house"></i>
+                <span>Sets</span>
+            </button>
         </a>
 
         <button class="nav-item active" data-view="home">
-            <span class="nav-icon">▦</span>
+            <i class="fa-solid fa-user"></i>
             <span>Figuras</span>
         </button>
 
+        <a href="../Piezas/index.html" class="linkfig">
+            <button class="nav-item" data-view="figures">
+                <i class="fa-solid fa-plus"></i>
+                <span>Piezas</span>
+            </button>
+        </a>
+
+        <a href="../Otros/index.html" class="linkfig">
+            <button class="nav-item" data-view="figures">
+                <i class="fa-solid fa-cubes-stacked"></i>
+                <span>Otros</span>
+            </button>
+        </a>  
+
         <button class="nav-item" data-view="saved">
-            <span class="nav-icon">♡</span>
+            <i class="fa-solid fa-heart"></i>
             <span>Guardados</span>
             <span class="saved-counter" id="savedCounter">0</span>
         </button>

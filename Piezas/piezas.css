@@ -1,0 +1,1363 @@
+
+/* =====================================================
+   NAZABRICKS - CATALOGO DE PIEZAS
+   DISEÑO ADAPTADO AL CATALOGO PRINCIPAL
+===================================================== */
+
+/* =========================================
+   1. CONFIGURACION GENERAL
+========================================= */
+
+:root {
+    --primary: #7655d9;
+    --primary-light: #f0ebff;
+    --dark: #24212d;
+    --gray: #777481;
+    --light: #f7f7fa;
+    --border: #ff0303;
+    --white: #ffffff;
+    --blue: #0f56da;
+
+    --page-padding: clamp(12px, 3vw, 38px);
+    --card-radius: 15px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 130px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--dark);
+    background: #030303;
+    padding-bottom: 100px;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+
+/* =========================================
+   2. BARRA SUPERIOR
+========================================= */
+
+.top-header {
+    position: sticky;
+    top: 5px;
+    z-index: 100;
+
+    width: 96%;
+    margin: 5px 2% 0;
+
+    background: #000;
+    border: 2px solid var(--border);
+    border-bottom: 3px solid var(--border);
+    border-radius: 20px;
+
+    padding: 12px;
+    backdrop-filter: blur(12px);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 25px);
+    min-height: 48px;
+}
+
+
+/* LOGOTIPO */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.brand-logo {
+    position: relative;
+
+    width: 48px;
+    height: 48px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logo-fallback {
+    display: none;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 25px;
+}
+
+.brand-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.brand-info h1 {
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.brand-info span {
+    color: rgb(15, 178, 219);
+    font-size: 9px;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+
+/* BUSCADOR */
+
+.header-search {
+    position: relative;
+    flex: 1;
+    max-width: 600px;
+    margin-left: auto;
+}
+
+.header-search > i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: var(--gray);
+    font-size: 15px;
+    pointer-events: none;
+}
+
+.header-search input {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 42px;
+
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    outline: none;
+    color: var(--dark);
+    font-size: 13px;
+
+    transition: .2s;
+}
+
+.header-search input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px #7655d922;
+}
+
+.header-search input::placeholder {
+    color: #777481;
+}
+
+.clear-search {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 27px;
+    height: 27px;
+
+    display: none;
+    place-items: center;
+
+    background: transparent;
+    border: none;
+    color: var(--gray);
+}
+
+.clear-search.visible {
+    display: grid;
+}
+
+
+/* ACCIONES */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-icon-button {
+    position: relative;
+
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+
+    color: var(--dark);
+    font-size: 17px;
+}
+
+.header-icon-button:hover {
+    color: var(--primary);
+}
+
+.saved-counter {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+    background: #ff304f;
+    color: white;
+
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.back-catalog {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 11px 13px;
+
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: bold;
+
+    transition: .2s;
+}
+
+.back-catalog:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+
+/* =========================================
+   3. FILTROS
+========================================= */
+
+.search-filters {
+    margin-top: 10px;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.filter-label i {
+    color: rgb(15, 178, 219);
+}
+
+.filter-container select {
+    min-width: 150px;
+    max-width: 220px;
+    height: 36px;
+
+    padding: 0 10px;
+
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    outline: none;
+    color: var(--dark);
+    font-size: 11px;
+}
+
+.filter-container select:focus {
+    border-color: var(--primary);
+}
+
+.clear-filters {
+    height: 36px;
+    padding: 0 12px;
+
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    color: var(--gray);
+    font-size: 11px;
+
+    transition: .2s;
+}
+
+.clear-filters:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+
+/* =========================================
+   4. CONTENIDO PRINCIPAL
+========================================= */
+
+.main-container {
+    width: 100%;
+    max-width: 1700px;
+    margin: auto;
+}
+
+/* Ocultar encabezado decorativo.
+   El catálogo comienza directamente
+   con las categorías. */
+
+.welcome-section {
+    display: none !important;
+}
+
+
+/* =========================================
+   5. ENCABEZADOS DE SECCION
+========================================= */
+
+.categories-section,
+.subcategories-section,
+.products-section,
+.saved-section {
+    padding: 30px var(--page-padding) 10px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-overline {
+    display: block;
+    color: var(--primary);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    margin-bottom: 5px;
+}
+
+.section-heading h2,
+.products-heading h2 {
+    color: white;
+    font-size: clamp(19px, 2vw, 25px);
+    margin-bottom: 3px;
+}
+
+.section-heading p,
+.products-heading p {
+    color: rgb(15, 86, 218);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   6. CATEGORIAS PRINCIPALES
+========================================= */
+
+.categories-grid {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+
+    overflow-x: auto;
+    padding: 7px 3px 15px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #777 transparent;
+}
+
+.categories-grid::-webkit-scrollbar {
+    height: 5px;
+}
+
+.categories-grid::-webkit-scrollbar-thumb {
+    background: #777;
+    border-radius: 10px;
+}
+
+.category-card {
+    flex: 0 0 clamp(115px, 14vw, 145px);
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+
+    background: white;
+    border: 3px solid var(--border);
+    border-radius: 15px;
+
+    color: var(--dark);
+    text-align: center;
+
+    transition: .2s;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+}
+
+.category-card.active {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.category-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    display: grid;
+    place-items: center;
+
+    overflow: hidden;
+    background: var(--light);
+    border-radius: 12px;
+}
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .3s;
+}
+
+.category-card:hover .category-image img {
+    transform: scale(1.07);
+}
+
+.category-all-image {
+    color: var(--primary);
+    font-size: 30px;
+}
+
+.category-name {
+    width: 100%;
+    color: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+
+/* =========================================
+   7. SUBCATEGORIAS
+========================================= */
+
+.subcategories-section {
+    padding-top: 20px;
+}
+
+.subcategories-list {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    overflow-x: auto;
+    padding: 5px 2px 14px;
+
+    scrollbar-width: thin;
+}
+
+.subcategory-button {
+    flex: 0 0 auto;
+
+    padding: 10px 17px;
+
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+
+    color: var(--dark);
+    font-size: 12px;
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.subcategory-button:hover,
+.subcategory-button.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+
+/* =========================================
+   8. PRODUCTOS
+========================================= */
+
+.products-section {
+    padding-top: 25px;
+    border-top: 1px solid #333;
+    margin: 10px 12px 0;
+}
+
+.products-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.products-view-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 9px 12px;
+
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    color: var(--dark);
+    font-size: 11px;
+}
+
+
+/* GRID */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(12px, 2vw, 22px);
+}
+
+
+/* TARJETAS */
+
+.product-card {
+    position: relative;
+    overflow: hidden;
+
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: var(--card-radius);
+
+    cursor: pointer;
+    transition: transform .25s, box-shadow .25s;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px #ff030320;
+}
+
+
+/* IMAGEN */
+
+.product-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+    background: white;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    object-fit: contain;
+
+    transition: transform .3s;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.04);
+}
+
+
+/* INFORMACION */
+
+.product-info {
+    padding: clamp(10px, 1.4vw, 17px);
+}
+
+.product-category {
+    display: block;
+
+    color: var(--primary);
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    line-height: 1.5;
+}
+
+.product-title {
+    color: var(--dark);
+    font-size: clamp(12px, 1.1vw, 15px);
+    line-height: 1.4;
+
+    margin-top: 7px;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    min-height: 40px;
+}
+
+
+/* GUARDAR PIEZA */
+
+.product-save-button {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    z-index: 5;
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    background: #ffffffed;
+    border: 1px solid #777;
+    border-radius: 50%;
+
+    color: #111;
+    font-size: 16px;
+
+    transition: .2s;
+}
+
+.product-save-button:hover,
+.product-save-button.saved {
+    color: #ff0329;
+    border-color: #ff0329;
+    background: white;
+}
+
+
+/* =========================================
+   9. MENSAJES
+========================================= */
+
+.loading-message {
+    width: 100%;
+    padding: 35px 15px;
+
+    color: #aaa;
+    text-align: center;
+    font-size: 13px;
+}
+
+.loading-message i {
+    margin-right: 7px;
+    color: var(--primary);
+}
+
+.empty-state {
+    padding: 45px 15px;
+    text-align: center;
+    color: white;
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+
+    display: grid;
+    place-items: center;
+
+    margin: 0 auto 15px;
+
+    background: #191919;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+
+    color: var(--primary);
+    font-size: 25px;
+}
+
+.empty-state h3 {
+    margin-bottom: 9px;
+    font-size: 18px;
+}
+
+.empty-state p {
+    color: #999;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.empty-state button {
+    margin-top: 18px;
+    padding: 11px 17px;
+
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    color: var(--dark);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* =========================================
+   10. VENTANA DE GUARDADOS
+========================================= */
+
+.saved-section {
+    padding-top: 30px;
+    min-height: 60vh;
+}
+
+
+/* =========================================
+   11. MODAL DE PIEZA
+========================================= */
+
+.product-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+}
+
+.product-modal.open {
+    display: flex;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: #000c;
+    backdrop-filter: blur(5px);
+}
+
+.modal-container {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 850px;
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 18px;
+
+    animation: modalIn .25s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+
+    width: 38px;
+    height: 38px;
+
+    display: grid;
+    place-items: center;
+
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+
+    color: var(--dark);
+    font-size: 19px;
+}
+
+.modal-close:hover {
+    color: red;
+}
+
+.modal-content {
+    width: 100%;
+}
+
+.modal-product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.modal-product-image {
+    min-height: 350px;
+    background: #f5f5f7;
+}
+
+.modal-product-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+
+    display: block;
+    object-fit: contain;
+}
+
+.modal-product-info {
+    padding: clamp(22px, 4vw, 40px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-product-info h2 {
+    color: var(--dark);
+    font-size: clamp(20px, 2.5vw, 27px);
+    line-height: 1.3;
+    margin: 12px 0 20px;
+}
+
+.modal-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-detail span {
+    color: var(--gray);
+    font-size: 11px;
+}
+
+.modal-detail strong {
+    color: var(--dark);
+    font-size: 13px;
+}
+
+.modal-product-info p {
+    margin-top: 20px;
+    color: var(--gray);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.modal-save-button {
+    margin-top: 22px;
+    padding: 13px;
+
+    background: var(--primary);
+    border: none;
+    border-radius: 10px;
+
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.modal-save-button.saved {
+    background: #e9e4fa;
+    color: var(--primary);
+}
+
+
+/* =========================================
+   12. NOTIFICACIONES
+========================================= */
+
+.toast-container {
+    position: fixed;
+    bottom: 95px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    width: max-content;
+    max-width: 90%;
+    pointer-events: none;
+}
+
+.toast {
+    padding: 12px 20px;
+
+    background: #24212d;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+
+    color: white;
+    font-size: 13px;
+
+    animation: toastIn .25s ease;
+}
+
+.toast.error {
+    border-color: #ff304f;
+}
+
+.toast.success {
+    border-color: #26b96c;
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================
+   13. NAVEGACION INFERIOR
+========================================= */
+
+.bottom-navigation {
+    position: fixed;
+    bottom: 5px;
+    left: 2%;
+    z-index: 200;
+
+    width: 96%;
+    min-height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: clamp(20px, 8vw, 110px);
+
+    padding: 8px 15px calc(8px + env(safe-area-inset-bottom));
+
+    background: #000;
+    border: 2px solid var(--border);
+    border-top: 3px solid var(--border);
+    border-radius: 20px;
+
+    backdrop-filter: blur(12px);
+}
+
+.bottom-nav-item {
+    position: relative;
+
+    min-width: 55px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    padding: 4px;
+
+    background: transparent;
+    border: none;
+
+    color: white;
+    text-decoration: none;
+
+    font-size: 11px;
+    transition: .2s;
+}
+
+.bottom-nav-item i {
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+.bottom-nav-item span {
+    font-size: 10px;
+}
+
+.bottom-nav-item:hover,
+.bottom-nav-item.active {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+
+/* =========================================
+   14. TABLETS
+========================================= */
+
+@media (max-width: 900px) {
+
+    .header-container {
+        flex-wrap: wrap;
+    }
+
+    .brand {
+        order: 1;
+    }
+
+    .header-actions {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .header-search {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+    }
+
+    .search-filters {
+        margin-top: 10px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================
+   15. CELULARES
+========================================= */
+
+@media (max-width: 520px) {
+
+    :root {
+        --page-padding: 12px;
+    }
+
+    body {
+        padding-bottom: 95px;
+    }
+
+    .top-header {
+        padding: 10px 12px;
+        border-radius: 18px;
+    }
+
+    .header-container {
+        gap: 9px;
+    }
+
+    .brand-logo {
+        width: 38px;
+        height: 38px;
+    }
+
+    .brand-info h1 {
+        font-size: 12px;
+    }
+
+    .brand-info span {
+        font-size: 8px;
+    }
+
+    .header-actions {
+        gap: 7px;
+    }
+
+    .header-icon-button {
+        width: 35px;
+        height: 35px;
+        font-size: 15px;
+    }
+
+    .back-catalog {
+        padding: 9px;
+        font-size: 10px;
+    }
+
+    .header-search input {
+        height: 40px;
+        font-size: 12px;
+    }
+
+
+    /* FILTROS */
+
+    .filter-container {
+        gap: 7px;
+    }
+
+    .filter-label {
+        width: 100%;
+        font-size: 11px;
+    }
+
+    .filter-container select {
+        flex: 1;
+        min-width: 0;
+        max-width: none;
+        height: 35px;
+        font-size: 10px;
+    }
+
+    .clear-filters {
+        height: 35px;
+        padding: 0 9px;
+        font-size: 10px;
+    }
+
+
+    /* SECCIONES */
+
+    .categories-section,
+    .subcategories-section,
+    .saved-section {
+        padding-top: 27px;
+    }
+
+    .section-heading h2,
+    .products-heading h2 {
+        font-size: 19px;
+    }
+
+    .section-heading p,
+    .products-heading p {
+        font-size: 12px;
+    }
+
+
+    /* CATEGORIAS */
+
+    .categories-grid {
+        gap: 10px;
+        padding-top: 7px;
+    }
+
+    .category-card {
+        flex: 0 0 125px;
+        padding: 8px;
+        gap: 7px;
+    }
+
+    .category-name {
+        font-size: 11px;
+    }
+
+
+    /* SUBCATEGORIAS */
+
+    .subcategory-button {
+        padding: 9px 14px;
+        font-size: 11px;
+    }
+
+
+    /* PRODUCTOS */
+
+    .products-section {
+        margin: 10px 12px 0;
+        padding: 25px 0;
+    }
+
+    .products-heading {
+        align-items: center;
+        margin-bottom: 18px;
+    }
+
+    .products-view-info {
+        padding: 8px;
+        font-size: 10px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .product-card {
+        border-radius: 14px;
+    }
+
+    .product-info {
+        padding: 10px;
+    }
+
+    .product-category {
+        font-size: 9px;
+    }
+
+    .product-title {
+        font-size: 13px;
+        min-height: 37px;
+    }
+
+    .product-save-button {
+        top: 7px;
+        right: 7px;
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+
+    /* MODAL */
+
+    .modal-product-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-product-image,
+    .modal-product-image img {
+        min-height: 230px;
+        max-height: 300px;
+    }
+
+    .modal-product-info {
+        padding: 22px;
+    }
+
+
+    /* NAVEGACION */
+
+    .bottom-navigation {
+        justify-content: space-around;
+        gap: 0;
+        min-height: 72px;
+        padding: 8px 5px;
+    }
+
+    .bottom-nav-item {
+        min-width: 55px;
+        gap: 4px;
+    }
+
+    .bottom-nav-item i {
+        font-size: 20px;
+    }
+
+    .bottom-nav-item span {
+        font-size: 10px;
+    }
+
+    .toast-container {
+        bottom: 90px;
+    }
+
+}
+
+
+/* =========================================
+   16. CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 350px) {
+
+    .brand-info {
+        display: none;
+    }
+
+    .back-catalog span {
+        display: none;
+    }
+
+    .back-catalog {
+        width: 35px;
+        height: 35px;
+        justify-content: center;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .category-card {
+        flex-basis: 110px;
+    }
+
+    .products-heading {
+        align-items: flex-start;
+    }
+
+}

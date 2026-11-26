@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Catálogo | Otros Juguetes</title>
+
+    <!-- ICONOS -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="otros.css">
+
+</head>
+
+<body>
+
+    <!-- =====================================
+         BARRA SUPERIOR
+    ====================================== -->
+
+    <header class="top-header">
+
+        <div class="header-container">
+
+            <!-- LOGO -->
+
+            <a href="../index.html" class="brand">
+
+                <div class="brand-logo">
+                    <img src="../img/Logotipo.png" alt="NazaBricks"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+
+                    <span class="logo-fallback">
+                        <i class="fa-solid fa-cubes"></i>
+                    </span>
+                </div>
+
+                <div class="brand-info">
+                    <h1>Figuras de Accion</h1>
+                    <span>Catálogo de Figuras de accion</span>
+                </div>
+
+            </a>
+
+
+            <!-- BUSCADOR -->
+
+            <div class="header-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Buscar Figura por nombre..."
+                    autocomplete="off"
+                >
+
+                <button id="clearSearch" class="clear-search"
+                    aria-label="Limpiar búsqueda">
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- ACCIONES -->
+
+            <div class="header-actions">
+
+                <button id="savedHeaderButton" class="header-icon-button"
+                    aria-label="Ver guardados">
+
+                    <i class="fa-regular fa-bookmark"></i>
+
+                    <span class="saved-counter" id="savedCounter">0</span>
+
+                </button>
+
+               
+
+            </div>
+
+        </div>
+
+
+        <!-- FILTROS DE BUSQUEDA -->
+
+        <div class="search-filters">
+
+            <div class="filter-container">
+
+                <span class="filter-label">
+                    <i class="fa-solid fa-sliders"></i>
+                    Filtros:
+                </span>
+
+                <select id="mainCategoryFilter">
+
+                    <option value="Todas">
+                        Todas las categorías
+                    </option>
+
+                </select>
+
+                <select id="subcategoryFilter">
+
+                    <option value="Todas">
+                        Todas las subcategorías
+                    </option>
+
+                </select>
+
+                <button id="clearFilters" class="clear-filters">
+
+                    <i class="fa-solid fa-rotate-left"></i>
+
+                    Limpiar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         CONTENIDO PRINCIPAL
+    ====================================== -->
+
+    <main class="main-container">
+
+
+        <!-- =================================
+             ENCABEZADO
+        ================================== -->
+
+        <section class="welcome-section" id="welcomeSection">
+
+            <div class="welcome-content">
+
+                <span class="welcome-tag">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    COLECCIONA Y COMPLETA
+                </span>
+
+                <h2>
+                    Encuentra las piezas
+                    <span>que necesitas.</span>
+                </h2>
+
+                <p>
+                    Explora nuestro catálogo de piezas LEGO,
+                    descubre diferentes categorías y encuentra
+                    exactamente lo que buscas.
+                </p>
+
+            </div>
+
+            <div class="welcome-decoration">
+
+                <i class="fa-solid fa-cubes"></i>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             CATEGORIAS PRINCIPALES
+        ================================== -->
+
+        <section class="categories-section" id="categoriesSection">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Categorías</h2>
+
+                    <p>
+                        Selecciona una categoría para explorar sus piezas.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="categories-grid" id="categoriesGrid">
+
+                <!-- CATEGORIAS DESDE GOOGLE SHEETS -->
+
+                <div class="loading-message">
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    Cargando categorías...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             SUBCATEGORIAS
+        ================================== -->
+
+        <section class="subcategories-section" id="subcategoriesSection">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Subcategorías</h2>
+
+                    <p id="subcategoryDescription">
+                        Selecciona una categoría para ver sus subcategorías.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="subcategories-list" id="subcategoriesList">
+
+                <!-- SUBCATEGORIAS DESDE GOOGLE SHEETS -->
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             LISTADO DE PIEZAS
+        ================================== -->
+
+        <section class="products-section" id="productsSection">
+
+            <div class="products-heading">
+
+                <div>
+
+                    <h2 id="productsTitle">
+                        Todas las piezas
+                    </h2>
+
+                    <p id="productsCount">
+                        Cargando piezas...
+                    </p>
+
+                </div>
+
+                <div class="products-view-info">
+
+                    <i class="fa-solid fa-grip"></i>
+
+                    <span>Catálogo</span>
+
+                </div>
+
+            </div>
+
+
+            <!-- TARJETAS -->
+
+            <div class="products-grid" id="productsGrid">
+
+                <div class="loading-message">
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    Cargando piezas...
+
+                </div>
+
+            </div>
+
+
+            <!-- SIN RESULTADOS -->
+
+            <div class="empty-state" id="emptyState" hidden>
+
+                <div class="empty-icon">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </div>
+
+                <h3>No encontramos piezas</h3>
+
+                <p>
+                    Intenta buscar con otro nombre o cambiar los filtros.
+                </p>
+
+                <button id="emptyClearFilters">
+
+                    Limpiar búsqueda
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             VENTANA DE GUARDADOS
+        ================================== -->
+
+        <section class="saved-section" id="savedSection" hidden>
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-overline">
+                        TU COLECCIÓN PERSONAL
+                    </span>
+
+                    <h2>Mis piezas guardadas</h2>
+
+                    <p>
+                        Aquí encontrarás todas las piezas que hayas guardado.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="products-grid" id="savedProductsGrid">
+
+                <!-- PIEZAS GUARDADAS -->
+
+            </div>
+
+
+            <div class="empty-state" id="savedEmptyState" hidden>
+
+                <div class="empty-icon">
+
+                    <i class="fa-regular fa-bookmark"></i>
+
+                </div>
+
+                <h3>Aún no tienes piezas guardadas</h3>
+
+                <p>
+                    Guarda tus piezas favoritas para encontrarlas fácilmente.
+                </p>
+
+                <button id="explorePiecesButton">
+
+                    Explorar piezas
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================
+         MODAL DE PRODUCTO
+    ====================================== -->
+
+    <div class="product-modal" id="productModal" aria-hidden="true">
+
+        <div class="modal-overlay" id="modalOverlay"></div>
+
+        <div class="modal-container">
+
+            <button class="modal-close" id="modalClose"
+                aria-label="Cerrar ventana">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+            <div class="modal-content" id="modalContent">
+
+                <!-- INFORMACION DE LA PIEZA -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         NOTIFICACIONES
+    ====================================== -->
+
+    <div class="toast-container" id="toastContainer">
+
+    </div>
+
+
+    <!-- =====================================
+         NAVEGACION INFERIOR
+    ====================================== -->
+
+    <nav class="bottom-navigation">
+
+        <a href="../index.html" class="bottom-nav-item">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>Inicio</span>
+
+        </a>
+
+
+        <a href="../FigurasAlan/index.html" class="bottom-nav-item">
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>Figuras</span>
+
+        </a>
+
+
+        <a href="../Piezas/index.html" class="bottom-nav-item ">
+
+            <i class="fa-solid fa-plus"></i>
+
+            <span>Piezas</span>
+
+        </a>
+
+
+        <a href="index.html" class="bottom-nav-item active">
+
+            <i class="fa-solid fa-cubes-stacked"></i>
+
+            <span>Otros </span>
+
+        </a>
+        
+
+
+        <button class="bottom-nav-item" id="savedNavButton">
+
+            <i class="fa-regular fa-bookmark"></i>
+
+            <span>Guardados</span>
+
+        </button>
+
+    </nav>
+
+
+    <!-- =====================================
+         JAVASCRIPT
+    ====================================== -->
+
+    <script src="otros.js"></script>
+
+</body>
+
+</html>

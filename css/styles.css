@@ -1,5 +1,3 @@
-
-/* CONFIGURACION GENERAL */
 :root {
     --primary: #7655d9;
     --primary-light: #f0ebff;
@@ -51,9 +49,11 @@ button {
 
 
 
-
-
-/* NAV SUPERIOR */
+/* ====================================================*/
+/* ====================================================*/
+/* =============== NAVEGACION SUPERIOR =============== */
+/* ====================================================*/
+/* ====================================================*/
 .topbar {
     position: sticky;
     top: 5px;
@@ -183,7 +183,11 @@ button {
 
 
 
-/* CONTENIDO */
+/* ====================================================*/
+/* ====================================================*/
+/* ==================== CONTENIDO ==================== */
+/* ====================================================*/
+/* ====================================================*/
 .main-content {
     width: 100%;
     max-width: 1700px;
@@ -191,7 +195,12 @@ button {
 }
 
 
-/* HERO */
+
+
+
+/* ====================================================*/
+/* ====================== HRRO ======================= */
+/* ====================================================*/
 .hero-section {
     padding: 15px 10px 0;
 }
@@ -228,10 +237,8 @@ button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-
     width: 42px;
     height: 42px;
-
     border: none;
     border-radius: 50%;
     background: #ffffffdf;
@@ -277,10 +284,13 @@ button {
     background: white;
 }
 
-/* =========================================
-   CATEGORIAS
-========================================= */
 
+
+
+
+/* ====================================================*/
+/* =================== CATEGORIAS ==================== */
+/* ====================================================*/
 .categories-section {
     padding: 35px var(--page-padding) 10px;
 }
@@ -334,9 +344,6 @@ button {
     font-size: 22px;
 }
 
-
-/* IMAGENES DE CATEGORIAS */
-
 .category-photo {
     width: 100px;
     height: 100px;
@@ -357,13 +364,10 @@ button {
     transform: scale(1.08);
 }
 
-/* Categorias con imagen un poco mas grandes */
-
 .category-button:has(.category-photo) {
     min-width: 115px;
     padding: 12px;
 }
-
 
 .category-button span:last-child {
     font-size: 12px;
@@ -377,10 +381,13 @@ button {
     color: var(--primary);
 }
 
-/* =========================================
-   PRODUCTOS
-========================================= */
 
+
+
+
+/* ====================================================*/
+/* ==================== PRODUCTOS ==================== */
+/* ====================================================*/
 .products-section {
     padding: 25px var(--page-padding);
 }
@@ -548,10 +555,25 @@ button {
     display: none !important;
 }
 
-/* =========================================
-   MODAL
-========================================= */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====================================================*/
+/* ====================================================*/
+/* ================= MODAL DE PRODUCTO ================ */
+/* ====================================================*/
+/* ====================================================*/
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -655,30 +677,40 @@ button {
     font-weight: bold;
 }
 
-/* =========================================
-   NAV INFERIOR
-========================================= */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====================================================*/
+/* ====================================================*/
+/* =============== NAVEGACION INFERIOR =============== */
+/* ====================================================*/
+/* ====================================================*/
 .bottom-nav {
     position: fixed;
     bottom: 5px;
     left: 0;
     z-index: 200;
-
-    
     width: 96%;
     margin-left: 2%;
     margin-right: 2%;
     border-radius: 20px 20px 20px 20px;
     min-height: 75px;
-
     display: flex;
     align-items: center;
     justify-content: center;
     gap: clamp(25px, 10vw, 120px);
-
     padding: 8px 15px calc(8px + env(safe-area-inset-bottom));
-
     background: rgb(0, 0, 0);
     border-left: 2px solid var(--border);
     border-right: 2px solid var(--border);
@@ -697,24 +729,20 @@ button {
     flex-direction: column;
     align-items: center;
     gap: 4px;
-
-    
-
     border: none;
     background: transparent;
     color: #fdfdfd;
     font-size: 11px;
 }
 
-.nav-icon {
+i {
     font-size: 24px;
     line-height: 1.2;
     
 }
 
 .nav-item.active {
-    color: var(--primary);
-   
+    color: var(--primary);   
     font-weight: bold;
 }
 
@@ -735,6 +763,21 @@ button {
 .saved-counter:empty {
     display: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* =========================================
    NOTIFICACIONES
@@ -921,4 +964,318 @@ button {
     .price-filters input {
         width: 58px;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   CATALOGO DE PIEZAS
+========================================= */
+
+.pieces-section {
+    padding: 30px var(--page-padding);
+}
+
+.pieces-overline {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.pieces-heading h2 {
+    font-size: clamp(23px, 3vw, 32px);
+    margin: 8px 0;
+}
+
+.pieces-heading p {
+    color: var(--gray);
+    font-size: 13px;
+}
+
+.pieces-main-categories {
+    margin-top: 30px;
+}
+
+.pieces-section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.pieces-section-title h3 {
+    font-size: 17px;
+}
+
+.pieces-section-title span {
+    color: var(--gray);
+    font-size: 12px;
+}
+
+/* CATEGORIAS PRINCIPALES */
+
+.pieces-category-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(clamp(105px, 13vw, 155px), 1fr)
+    );
+
+    gap: clamp(10px, 2vw, 20px);
+}
+
+.pieces-category-card {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: white;
+    cursor: pointer;
+    text-align: center;
+    transition: .25s;
+}
+
+.pieces-category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px #0000000d;
+}
+
+.pieces-category-card.active {
+    border: 2px solid var(--primary);
+    background: var(--primary-light);
+}
+
+.pieces-category-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 11px;
+    background: var(--light);
+}
+
+.pieces-category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pieces-category-card h4 {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* SUBCATEGORIAS */
+
+.pieces-subcategories {
+    margin-top: 30px;
+}
+
+.pieces-subcategory-list {
+    display: flex;
+    gap: 9px;
+    overflow-x: auto;
+    padding: 5px 2px 13px;
+    scrollbar-width: thin;
+}
+
+.pieces-subcategory-button {
+    flex: 0 0 auto;
+    padding: 10px 17px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: white;
+    color: var(--dark);
+    font-size: 12px;
+    transition: .2s;
+}
+
+.pieces-subcategory-button:hover,
+.pieces-subcategory-button.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* PRODUCTOS */
+
+.pieces-products {
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border);
+}
+
+/* En las piezas no existen filtros de precio */
+
+body.pieces-view .price-filters {
+    display: none;
+}
+
+/* Mostrar únicamente la nueva ventana */
+
+body.pieces-view .hero-section,
+body.pieces-view #categoriesSection,
+body.pieces-view #productsSection {
+    display: none;
+}
+
+body.pieces-view #piecesSection {
+    display: block;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .pieces-section {
+        padding: 22px 12px;
+    }
+
+    .pieces-category-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .pieces-category-card {
+        padding: 7px;
+    }
+
+    .pieces-category-card h4 {
+        font-size: 11px;
+    }
+
+    .pieces-section-title {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+}
+
+@media (max-width: 350px) {
+
+    .pieces-category-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
 }
